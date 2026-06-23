@@ -47,6 +47,18 @@ editions: ["Classic", "Public Preview"]
 .wsp-meta{font-size:11.5px;color:var(--muted,#605E5C);font-weight:600;margin-top:2px}
 .wsp-cta{font-size:12.6px;font-weight:700;color:var(--accent,#0F6CBD);margin-top:8px}
 .wsp-ext::after{content:" ↗"}
+.wsp-hero{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;margin:16px 0 8px;background:linear-gradient(135deg,rgba(177,31,75,.08),rgba(177,31,75,.02));border:1px solid var(--line,#EDEBE9);border-left:4px solid var(--accent,#B11F4B);border-radius:14px;padding:18px 22px;text-decoration:none;color:inherit;box-shadow:var(--shadow-sm);transition:transform .12s ease,box-shadow .16s ease}
+.wsp-hero:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);text-decoration:none}
+.wsp-hero .hico{font-size:30px;line-height:1}
+.wsp-hero .htxt{display:flex;flex-direction:column;gap:3px}
+.wsp-hero .hkick{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent,#B11F4B)}
+.wsp-hero .htitle{font-size:16px;font-weight:700;color:var(--ink,#201F1E)}
+.wsp-hero .hdesc{font-size:13px;color:var(--ink-2,#3B3A39)}
+.wsp-hero .hgo{font-size:24px;color:var(--accent,#B11F4B);font-weight:700}
+.markdown-body table{font-size:14.5px;border:1px solid var(--line);border-radius:12px}
+.markdown-body thead th{background:rgba(177,31,75,.06);color:#9A1A41;font-weight:700;border-bottom:2px solid rgba(177,31,75,.18)}
+.markdown-body th,.markdown-body td{padding:11px 14px}
+@media (max-width:680px){.wsp-hero{grid-template-columns:auto 1fr;gap:12px}.wsp-hero .hgo{display:none}}
 </style>
 
 <div class="wsp-group" style="--accent:#B11F4B;">
@@ -92,12 +104,12 @@ editions: ["Classic", "Public Preview"]
 </div>
 
 <div class="wsp-group" style="--accent:#C43E1C;">
-<div class="wsp-glabel">② 치원님 블로그 — 커스텀 에이전트 만들기 기초</div>
-<div class="wsp-gdesc">Agent_Blog(치원님)의 단계별 기초 실습으로 Copilot Studio를 처음부터 익힙니다.</div>
+<div class="wsp-glabel">② Solution Engineer 치원님 가이드 — 커스텀 에이전트 기초</div>
+<div class="wsp-gdesc">Microsoft Solution Engineer 치원님이 정리한 단계별 기초 실습으로 Copilot Studio를 처음부터 익힙니다.</div>
 <div class="wsp-grid">
 <a class="wsp-card" href="https://chichoi1991.github.io/Agent_Blog/chapters/ws1-0-overview/" target="_blank" rel="noopener">
 <span class="wsp-ic">📘</span>
-<span class="wsp-body"><span class="wsp-step">Agent_Blog</span><span class="wsp-title">커스텀 에이전트 만들기 기초편 #1</span><span class="wsp-desc">개요부터 시작하는 Copilot Studio 커스텀 에이전트 기초 시리즈</span><span class="wsp-cta wsp-ext">블로그에서 보기</span></span>
+<span class="wsp-body"><span class="wsp-step">치원님 가이드</span><span class="wsp-title">커스텀 에이전트 만들기 기초편 #1</span><span class="wsp-desc">개요부터 시작하는 Copilot Studio 커스텀 에이전트 기초 시리즈</span><span class="wsp-cta wsp-ext">가이드 열기</span></span>
 </a>
 </div>
 </div>
@@ -127,59 +139,76 @@ editions: ["Classic", "Public Preview"]
 
 > 📌 **모듈 3 · 랩 2(오케스트레이션)** 는 구(Classic)·신(New) 기능이 함께 섞여 있어, 아래 [4. Classic & New 한번에 같이 실습](#4-classic--new-한번에-같이-실습) 섹션에서 다룹니다.
 
-## 3. New Copilot Studio 기본 설명 (구조)
+## 3. New Copilot Studio — 구조와 신규 워크플로우
 
-새로운 Copilot Studio의 생성형 오케스트레이션 구조와 아키텍처(에이전틱 하니스)를 소개합니다.
+재설계된 New Copilot Studio는 화면만 바뀐 게 아니라 **에이전틱 하네스(코딩·CLI 레이어) 위에 AI 코어를 재건축**한 새로운 런타임입니다. 왜 다시 만들었는지, 무엇이 달라졌는지, 새 에이전트의 6대 구성요소는 무엇인지를 별도 페이지에 자세히 정리했습니다.
 
-- Copilot Studio's New Agentic Harness & Python *(링크 추가 예정)*
-- Microsoft Rebuilt Copilot Studio — Here's Everything New *(YouTube, 링크 추가 예정)*
-- What's new in Copilot Studio: May 2026 update *(Microsoft, 링크 추가 예정)*
+<a class="wsp-hero" href="{{ '/labs/new-copilot-studio-structure-kr/' | relative_url }}">
+<span class="hico">🏗️</span>
+<span class="htxt"><span class="hkick">구조 자세히 보기</span><span class="htitle">New Copilot Studio — 새로운 에이전트 아키텍처</span><span class="hdesc">왜 다시 만들었나 · AI 코어 재건축 · 구 vs 신 비교 · 6대 구성요소 · 영상 · 핸즈온</span></span>
+<span class="hgo">→</span>
+</a>
 
-> 📝 *작성 예정: 신규 에이전틱 하니스(harness) 구조도, 변경점 요약.*
+### 워크플로우(Workflows) — 새로 추가된 자율 실행 기능 (모듈 4 · 랩 3)
+
+인라인 에이전트 연결과 **예약·이벤트 기반 트리거**로 에이전트가 스스로 동작하는 New Copilot Studio의 핵심 신규 기능입니다. Classic 자율 트리거 모델을 넘어, 일정·이벤트에 따라 에이전트가 능동적으로 작업을 수행합니다.
+
+<div class="wsp-group" style="--accent:#B11F4B;">
+<div class="wsp-grid">
+<a class="wsp-card" href="https://microsoft.github.io/mcs-labs/modules/workflows/" target="_blank" rel="noopener">
+<span class="wsp-ic">📐</span>
+<span class="wsp-body"><span class="wsp-step">모듈 4 · 개념</span><span class="wsp-title">워크플로우 디자이너</span><span class="wsp-desc">결정론적 단계 + 에이전트 노드 결합, 예약·이벤트 트리거</span><span class="wsp-meta">Level 300</span><span class="wsp-cta wsp-ext">개념 열기</span></span>
+</a>
+<a class="wsp-card" href="{{ '/labs/mcs-workflows-kr/' | relative_url }}">
+<span class="wsp-ic">⚙️</span>
+<span class="wsp-body"><span class="wsp-step">랩 3 · 실습</span><span class="wsp-title">이벤트 기반 자율 에이전트</span><span class="wsp-desc">작업시간 블로킹·Order Management·HITL·재고 관리·Price Quote 5개 Use Case (한국어 클론)</span><span class="wsp-meta">Level 300 · 60분</span><span class="wsp-cta">실습 열기 →</span></span>
+</a>
+</div>
+</div>
+
+> 📦 랩 3은 원문 [Workflows 랩(mcs-labs)](https://microsoft.github.io/mcs-labs/labs/mcs-workflows/?event=advanced-agent-in-a-day)의 5개 Use Case 전체를 **이미지까지 한국어로 클론**한 페이지입니다. (MIT © Microsoft, 출처 명시)
 
 ## 4. Classic & New 한번에 같이 실습
 
-구(Classic)와 신(New) 기능이 **함께 섞이는** 오케스트레이션·워크플로우를 한 흐름으로 실습하는 섹션입니다.
-생성형 오케스트레이션(모듈 3·랩 2)으로 라우팅·동적 체이닝을 익히고, 예약·이벤트 기반 **워크플로우(모듈 4·랩 3)** 로 에이전트가 스스로 동작하게 만듭니다.
+구(Classic)와 신(New) 기능이 **함께 섞이는** 생성형 오케스트레이션을 한 흐름으로 실습하고, 그 개념을 적용해 직접 만든 워크플로우 오리지널까지 완성하는 섹션입니다. (워크플로우 자체의 개념·랩 3은 위 **3. New Copilot Studio** 섹션에서 다룹니다.)
 
-> **출처 및 라이선스** — 원문 [microsoft/mcs-labs](https://github.com/microsoft/mcs-labs) (MIT © Microsoft)를 번역·재구성했습니다.
-> 라이선스 전문: <https://github.com/microsoft/mcs-labs/blob/main/LICENSE>
+> **출처 및 라이선스** — 원문 [microsoft/mcs-labs](https://github.com/microsoft/mcs-labs) (MIT © Microsoft)를 번역·재구성했습니다. 라이선스 전문: <https://github.com/microsoft/mcs-labs/blob/main/LICENSE>
 
 ### 4.1 모듈 3 · 랩 2 — 오케스트레이션과 동적 체이닝
 
-> **레벨** 300 · **출처** [Orchestration](https://microsoft.github.io/mcs-labs/modules/orchestration/) · MIT © Microsoft
+생성형 오케스트레이션 플래너가 매 턴 **어떤 도구·지식·연결 에이전트로 라우팅할지** 결정하는 방식과, 이를 좌우하는 **Instructions(지침)·Descriptions(설명)**, 그리고 한 턴에 작업을 끝까지 완료하는 **New Orchestrator(에이전틱 추론 루프)** 를 다룹니다. 구(Classic)의 표준 오케스트레이션과 신(New)의 추론 루프가 함께 등장하는 **구·신을 잇는 핵심 주제**입니다.
 
-생성형 오케스트레이션 플래너가 매 턴 **어떤 도구·지식·자식/연결 에이전트로 라우팅할지** 결정하는 방식과,
-이를 좌우하는 **Instructions(지침)·Descriptions(설명)**, 그리고 한 턴에 작업을 끝까지 완료하는 **New Orchestrator(에이전틱 추론 루프)** 를 다룹니다.
-구(Classic)의 표준 오케스트레이션과 신(New)의 추론 루프가 함께 등장하는 **구·신을 잇는 핵심 주제**입니다.
-
-| 콘텐츠 | 내용 | 소요 | 바로가기 |
-|--------|------|:----:|----------|
-| **모듈 3** (개념) | 오케스트레이션과 동적 체이닝 | 45분 | [개념 열기 →]({{ '/labs/module-orchestration-kr/' | relative_url }}) |
-| **랩 2** (실습) | 샘플 연결 에이전트 · Instructions/Descriptions · New Orchestrator · Skill (이미지 포함 한국어 클론) | 60분 | [실습 열기 →]({{ '/labs/mcs-orchestration-kr/' | relative_url }}) |
+<div class="wsp-group" style="--accent:#5B5FC7;">
+<div class="wsp-grid">
+<a class="wsp-card" href="{{ '/labs/module-orchestration-kr/' | relative_url }}">
+<span class="wsp-ic">🧭</span>
+<span class="wsp-body"><span class="wsp-step">모듈 3 · 개념</span><span class="wsp-title">오케스트레이션과 동적 체이닝</span><span class="wsp-desc">플래너 라우팅 · Instructions/Descriptions · New Orchestrator 추론 루프</span><span class="wsp-meta">Level 300 · 45분</span><span class="wsp-cta">개념 열기 →</span></span>
+</a>
+<a class="wsp-card" href="{{ '/labs/mcs-orchestration-kr/' | relative_url }}">
+<span class="wsp-ic">🔗</span>
+<span class="wsp-body"><span class="wsp-step">랩 2 · 실습</span><span class="wsp-title">연결 에이전트 · New Orchestrator</span><span class="wsp-desc">샘플 연결 에이전트 · Instructions/Descriptions · New Orchestrator · Skill (4개 Use Case 한국어 클론)</span><span class="wsp-meta">Level 300 · 60분</span><span class="wsp-cta">실습 열기 →</span></span>
+</a>
+</div>
+</div>
 
 > 📦 랩 2는 원문 [Orchestration 랩(mcs-labs)](https://microsoft.github.io/mcs-labs/labs/mcs-orchestration/?event=advanced-agent-in-a-day)의 4개 Use Case 전체를 **이미지까지 한국어로 클론**한 페이지입니다. (MIT © Microsoft, 출처 명시)
 
-### 4.2 모듈 4 · 랩 3 — 워크플로우(Workflows)
+### 4.2 Daily Brief 워크플로우 (직접 제작 오리지널)
 
-> **레벨** 300 · **출처** [Workflows](https://microsoft.github.io/mcs-labs/modules/workflows/) · MIT © Microsoft
+위 오케스트레이션·워크플로우 개념(트리거 + 인라인/멀티 에이전트 + 구조화 출력)을 실제로 적용해 **직접 설계·제작한 오리지널 실습**입니다. 매일 특정 회사 뉴스 브리프를 자동 생성해 메일로 발송하는 워크플로우를 구축합니다.
 
-인라인 에이전트 연결과 **예약·이벤트 기반 트리거**로 에이전트가 스스로 동작하는 차세대 자율 에이전트 기능입니다.
-Classic 자율 에이전트 트리거 모델을 넘어, 일정·이벤트에 따라 에이전트가 능동적으로 작업을 수행합니다.
-
-원문 [랩 3: Workflows (mcs-labs)](https://microsoft.github.io/mcs-labs/labs/mcs-workflows/?event=advanced-agent-in-a-day)의
-5개 Use Case 전체(작업 시간 블로킹, Order Management 설정, M365 Copilot 휴먼 인 더 루프, 재고 관리 인라인 에이전트, Price Quote 에이전트 호출)를
-**한국어로 이미지까지 전부 클론한 별도 페이지**를 마련했습니다.
-
-- ▶ **[Workflows — 이벤트 기반 자율 에이전트 (한국어 클론)]({{ '/labs/mcs-workflows-kr/' | relative_url }})**
-
-### 4.3 Daily Brief 워크플로우 (직접 제작 오리지널)
-
-위 모듈 개념(트리거 + 인라인/멀티 에이전트 + 구조화 출력)을 실제로 적용해 **직접 설계·제작한 오리지널 실습**입니다.
-매일 특정 회사 뉴스 브리프를 자동 생성해 메일로 발송하는 워크플로우를 구축합니다.
-
-- [Daily Brief Workflow (한국어)]({{ '/labs/daily-brief-kr/' | relative_url }}) — *이영서 제작*
-- [Daily Brief Workflow (English)]({{ '/labs/daily-brief-en/' | relative_url }}) — *이영서 제작*
+<div class="wsp-group" style="--accent:#0078D4;">
+<div class="wsp-grid">
+<a class="wsp-card" href="{{ '/labs/daily-brief-kr/' | relative_url }}">
+<span class="wsp-ic">📰</span>
+<span class="wsp-body"><span class="wsp-step">오리지널 · 한국어</span><span class="wsp-title">Daily Brief Workflow (한국어)</span><span class="wsp-desc">Researcher 웹 수집 + 멀티 에이전트 + SharePoint·메일 자동화</span><span class="wsp-meta">이영서 제작 · Level 300</span><span class="wsp-cta">실습 열기 →</span></span>
+</a>
+<a class="wsp-card" href="{{ '/labs/daily-brief-en/' | relative_url }}">
+<span class="wsp-ic">🌐</span>
+<span class="wsp-body"><span class="wsp-step">Original · English</span><span class="wsp-title">Daily Brief Workflow (English)</span><span class="wsp-desc">Researcher web collection + multi-agent + SharePoint/mail automation</span><span class="wsp-meta">by 이영서 · Level 300</span><span class="wsp-cta">실습 열기 →</span></span>
+</a>
+</div>
+</div>
 
 ## 5. Advanced Tool
 
