@@ -17,7 +17,7 @@ editions: ["Classic", "Public Preview"]
 <ul class="wsp-credits-l">
 <li><span class="wsp-credits-t" style="--c:#0078D4">글로벌 원문</span><strong>microsoft/mcs-labs</strong> (MIT © Microsoft) — 모듈 1~5 · 랩 1~3을 한국어로 번역·재구성했습니다. 원문: <a href="https://github.com/microsoft/mcs-labs" target="_blank" rel="noopener">github.com/microsoft/mcs-labs ↗</a></li>
 <li><span class="wsp-credits-t" style="--c:#C43E1C">Solution Engineer 최치원님</span><strong>Agent_Blog</strong> (chichoi1991.github.io) — Agent Builder 핸즈온, 커스텀 에이전트 기초, New Copilot Studio 구조·핸즈온 등 다수를 인용했습니다. <strong>본 워크샵 제작물이 아니며</strong> 원문에 그대로 연결합니다. 원문: <a href="https://chichoi1991.github.io/Agent_Blog/" target="_blank" rel="noopener">chichoi1991.github.io/Agent_Blog ↗</a></li>
-<li><span class="wsp-credits-t" style="--c:#107C10">직접 제작</span>별도 출처가 명시되지 않은 자료는 <strong>이영서</strong>가 제작했습니다.</li>
+<li><span class="wsp-credits-t" style="--c:#107C10">직접 제작</span>별도 출처가 명시되지 않은 자료는 <strong>이영서(Solution Engineer)</strong>가 제작했습니다.</li>
 </ul>
 </div>
 
