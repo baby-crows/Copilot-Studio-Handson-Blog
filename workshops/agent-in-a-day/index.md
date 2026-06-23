@@ -27,26 +27,105 @@ editions: ["Classic", "Public Preview"]
 | **라이선스(개략)** | M365 Copilot | Copilot Studio (웹 기반) |
 | **대표 활용** | 사내 문서 도우미, FAQ 봇 | 승인 워크플로, 백오피스 자동화, 멀티에이전트 |
 
-> 📖 **자세히 보기** — Agent Builder 선언형 에이전트 개념·예시·핸즈온과 Copilot Studio 구(Classic)·신(New) 경험 비교(스크린샷 포함)는 별도 페이지로 정리했습니다.
->
-> ▶ **[Agent Builder vs Copilot Studio 상세 비교 (한국어)]({{ '/labs/agentbuilder-vs-studio-kr/' | relative_url }})**
+### Agent Builder 직접 해보기 — 선언형 에이전트 (3단계)
+
+코드 없이 **자연어 지침 + 지식 소스**만으로 만드는 선언형 에이전트입니다. 아래 카드를 누르면 각 단계 핸즈온(치원님 Agent_Blog)으로 이동합니다.
+
+<style>
+.wsp-group{margin:18px 0 26px}
+.wsp-glabel{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--accent,#0F6CBD);margin:0 0 4px}
+.wsp-gdesc{font-size:13px;color:var(--muted,#605E5C);margin:0 0 14px}
+.wsp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:16px}
+.wsp-card{display:flex;flex-direction:column;background:var(--bg-card,#fff);border:1px solid var(--line,#EDEBE9);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:var(--shadow-sm);transition:transform .12s ease,box-shadow .16s ease,border-color .16s ease}
+.wsp-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--accent,#0F6CBD);text-decoration:none}
+.wsp-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top left;background:var(--bg,#FAF9F8);border-bottom:1px solid var(--line,#EDEBE9);display:block}
+.wsp-ic{font-size:28px;padding:16px 16px 0;line-height:1}
+.wsp-body{padding:12px 16px 16px;display:flex;flex-direction:column;gap:5px}
+.wsp-step{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent,#0F6CBD)}
+.wsp-title{font-size:15px;font-weight:700;color:var(--ink,#201F1E);margin:0;line-height:1.35}
+.wsp-desc{font-size:12.6px;color:var(--ink-2,#3B3A39);margin:0;line-height:1.5}
+.wsp-meta{font-size:11.5px;color:var(--muted,#605E5C);font-weight:600;margin-top:2px}
+.wsp-cta{font-size:12.6px;font-weight:700;color:var(--accent,#0F6CBD);margin-top:8px}
+.wsp-ext::after{content:" ↗"}
+</style>
+
+<div class="wsp-group" style="--accent:#B11F4B;">
+<div class="wsp-grid">
+<a class="wsp-card" href="https://chichoi1991.github.io/Agent_Blog/chapters/ws4-1-create-agent/" target="_blank" rel="noopener">
+<img class="wsp-thumb" src="{{ '/labs/agentbuilder-vs-studio-kr/images/ws4-1-create.png' | relative_url }}" alt="에이전트 생성 및 지침 작성" />
+<span class="wsp-body"><span class="wsp-step">Step 1</span><span class="wsp-title">에이전트 생성 및 지침 작성</span><span class="wsp-desc">에이전트 만들기 진입, 대화형·수동으로 지침 작성</span><span class="wsp-cta wsp-ext">핸즈온 열기</span></span>
+</a>
+<a class="wsp-card" href="https://chichoi1991.github.io/Agent_Blog/chapters/ws4-2-ref-feature/" target="_blank" rel="noopener">
+<img class="wsp-thumb" src="{{ '/labs/agentbuilder-vs-studio-kr/images/ws4-2-knowledge.png' | relative_url }}" alt="참조자료 기능 추가" />
+<span class="wsp-body"><span class="wsp-step">Step 2</span><span class="wsp-title">참조자료 · 기능 추가</span><span class="wsp-desc">메일·채팅·SharePoint 지식, 웹검색, 코드 인터프리터 활성화</span><span class="wsp-cta wsp-ext">핸즈온 열기</span></span>
+</a>
+<a class="wsp-card" href="https://chichoi1991.github.io/Agent_Blog/chapters/ws4-3-test-share/" target="_blank" rel="noopener">
+<img class="wsp-thumb" src="{{ '/labs/agentbuilder-vs-studio-kr/images/ws4-3-test.png' | relative_url }}" alt="테스트 및 공유" />
+<span class="wsp-body"><span class="wsp-step">Step 3</span><span class="wsp-title">테스트 및 공유</span><span class="wsp-desc">테스트 패널로 검증하고 조직 구성원에게 공유</span><span class="wsp-cta wsp-ext">핸즈온 열기</span></span>
+</a>
+</div>
+</div>
+
+> 📖 **전체 상세 비교** — Agent Builder 규제 적용 예시와 Copilot Studio **구(Classic) vs 신(New)** 경험 차이(스크린샷 포함)는 별도 페이지에 정리했습니다. → **[Agent Builder vs Copilot Studio 상세 비교 (한국어)]({{ '/labs/agentbuilder-vs-studio-kr/' | relative_url }})**
 
 ## 2. 구(Classic) Copilot Studio — 기본 개념 & 핸즈온
 
-기존(Classic) Copilot Studio의 핵심 작성 모델(에이전트·토픽·지식 소스·도구·변수·채널)을 개념부터 실습까지 한 흐름으로 정리합니다.
-아래 **모듈 → 랩** 순서대로 따라가면 개념을 익히고 바로 손으로 만들어 볼 수 있습니다. 각 항목은 **개별 페이지**로 분리되어 있어 깔끔하게 바로 이동할 수 있습니다.
+기존(Classic) Copilot Studio의 핵심 작성 모델(에이전트·토픽·지식·도구·변수·채널)을 **개념부터 실습까지** 익힙니다. 아래 세 갈래로 나눠 추천하니, 원하는 출발점을 고르세요.
 
-| 단계 | 콘텐츠 | 레벨 | 소요 | 바로가기 |
-|:----:|--------|:----:|:----:|----------|
-| **모듈 1** | Copilot Studio 핵심 개념 개요 (에이전트·토픽·지식·도구·변수·채널) | 200 | 30분 | [개념 열기 →]({{ '/labs/module-core-concepts-kr/' | relative_url }}) |
-| **모듈 2** | Copilot Studio 도구(Tools) — 커넥터·MCP·에이전트 플로우·CUA | 300 | 30분 | [개념 열기 →]({{ '/labs/module-tools-kr/' | relative_url }}) |
-| **랩 1** | 도구(Tools) 실습 — 커스텀 커넥터·에이전트 플로우·Dataverse MCP·커스텀 프롬프트·CUA | 300 | 60분 | [실습 열기 →]({{ '/labs/mcs-tools-kr/' | relative_url }}) |
+<div class="wsp-group" style="--accent:#0078D4;">
+<div class="wsp-glabel">① 이 워크샵 핸즈온 — 모듈 1 · 모듈 2 · 랩 1</div>
+<div class="wsp-gdesc">핵심 개념 → 도구 개념 → 도구 실습 순서로 따라가는 한국어 모듈입니다.</div>
+<div class="wsp-grid">
+<a class="wsp-card" href="{{ '/labs/module-core-concepts-kr/' | relative_url }}">
+<span class="wsp-ic">🧩</span>
+<span class="wsp-body"><span class="wsp-step">모듈 1</span><span class="wsp-title">Copilot Studio 핵심 개념</span><span class="wsp-desc">에이전트·토픽·지식·도구·변수·채널 개요</span><span class="wsp-meta">Level 200 · 30분</span><span class="wsp-cta">개념 열기 →</span></span>
+</a>
+<a class="wsp-card" href="{{ '/labs/module-tools-kr/' | relative_url }}">
+<span class="wsp-ic">🛠️</span>
+<span class="wsp-body"><span class="wsp-step">모듈 2</span><span class="wsp-title">도구(Tools) 개념</span><span class="wsp-desc">커넥터·MCP·에이전트 플로우·CUA</span><span class="wsp-meta">Level 300 · 30분</span><span class="wsp-cta">개념 열기 →</span></span>
+</a>
+<a class="wsp-card" href="{{ '/labs/mcs-tools-kr/' | relative_url }}">
+<span class="wsp-ic">🧪</span>
+<span class="wsp-body"><span class="wsp-step">랩 1</span><span class="wsp-title">도구(Tools) 실습</span><span class="wsp-desc">커스텀 커넥터·에이전트 플로우·Dataverse MCP·커스텀 프롬프트·CUA</span><span class="wsp-meta">Level 300 · 60분</span><span class="wsp-cta">실습 열기 →</span></span>
+</a>
+</div>
+</div>
 
-> 💡 **추천 학습 순서:** 모듈 1 (핵심 개념) → 모듈 2 (도구 개념) → **랩 1 (도구 실습)**.
->
-> 📌 **모듈 3(오케스트레이션)과 랩 2(오케스트레이션 실습)** 는 구(Classic)와 신(New) 기능이 함께 섞여 있어, 아래 [4. Classic & New 한번에 같이 실습](#4-classic--new-한번에-같이-실습) 섹션에서 모듈 4와 함께 다룹니다.
->
-> 참고 실습: [반(半)개발형 Agent 만들기 | Microsoft Copilot Studio](/labs/agentthon-multi-agent/)
+<div class="wsp-group" style="--accent:#C43E1C;">
+<div class="wsp-glabel">② 치원님 블로그 — 커스텀 에이전트 만들기 기초</div>
+<div class="wsp-gdesc">Agent_Blog(치원님)의 단계별 기초 실습으로 Copilot Studio를 처음부터 익힙니다.</div>
+<div class="wsp-grid">
+<a class="wsp-card" href="https://chichoi1991.github.io/Agent_Blog/chapters/ws1-0-overview/" target="_blank" rel="noopener">
+<span class="wsp-ic">📘</span>
+<span class="wsp-body"><span class="wsp-step">Agent_Blog</span><span class="wsp-title">커스텀 에이전트 만들기 기초편 #1</span><span class="wsp-desc">개요부터 시작하는 Copilot Studio 커스텀 에이전트 기초 시리즈</span><span class="wsp-cta wsp-ext">블로그에서 보기</span></span>
+</a>
+</div>
+</div>
+
+<div class="wsp-group" style="--accent:#107C10;">
+<div class="wsp-glabel">③ 내 Classic 실습 시리즈</div>
+<div class="wsp-gdesc">이 블로그에 정리된 정식(Classic) Copilot Studio 실습 모음입니다.</div>
+<div class="wsp-grid">
+<a class="wsp-card" href="{{ '/labs/agentacademy-a1/' | relative_url }}">
+<span class="wsp-ic">🎓</span>
+<span class="wsp-body"><span class="wsp-step">AgentAcademy</span><span class="wsp-title">커스텀 에이전트 초급 (A1–A4)</span><span class="wsp-desc">채용 에이전트로 배우는 핵심 기능·모델·멀티 에이전트·MCP</span><span class="wsp-cta">실습 열기 →</span></span>
+</a>
+<a class="wsp-card" href="{{ '/labs/agentthon-multi-agent/' | relative_url }}">
+<span class="wsp-ic">🧭</span>
+<span class="wsp-body"><span class="wsp-step">Agentthon</span><span class="wsp-title">멀티 에이전트 실습</span><span class="wsp-desc">출장 도우미 — 오케스트레이터 + 규정 + 현지 가이드 협업</span><span class="wsp-cta">실습 열기 →</span></span>
+</a>
+<a class="wsp-card" href="{{ '/labs/cps-vnet/' | relative_url }}">
+<span class="wsp-ic">🔒</span>
+<span class="wsp-body"><span class="wsp-step">VNet</span><span class="wsp-title">엔터프라이즈 보안 통합</span><span class="wsp-desc">Copilot Studio 에이전트를 Azure 프라이빗 네트워크와 안전 연결</span><span class="wsp-cta">실습 열기 →</span></span>
+</a>
+<a class="wsp-card" href="{{ '/labs/document-generation/' | relative_url }}">
+<span class="wsp-ic">📄</span>
+<span class="wsp-body"><span class="wsp-step">문서 자동화</span><span class="wsp-title">견적서 → 품의서 자동 생성</span><span class="wsp-desc">Vision(OCR) + 구조화 추출 + Word 템플릿 승인 플로우</span><span class="wsp-cta">실습 열기 →</span></span>
+</a>
+</div>
+</div>
+
+> 📌 **모듈 3 · 랩 2(오케스트레이션)** 는 구(Classic)·신(New) 기능이 함께 섞여 있어, 아래 [4. Classic & New 한번에 같이 실습](#4-classic--new-한번에-같이-실습) 섹션에서 다룹니다.
 
 ## 3. New Copilot Studio 기본 설명 (구조)
 
