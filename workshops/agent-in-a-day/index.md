@@ -1,14 +1,14 @@
 ---
 layout: workshop
-title: Agent in a Day — 구·신 Copilot Studio 핸즈온
-summary: M365 Copilot Agent Builder부터 구·신 Copilot Studio, Advanced 도구, Workflow까지 하루에 훑는 풀데이 워크샵.
+title: Agent in a Day — Classic & New Copilot Studio 핸즈온
+summary: M365 Copilot Agent Builder부터 Classic·New Copilot Studio, Advanced 도구, Workflow까지 하루에 혛는 풀데이 워크샵.
 level: 300
 time: Full-day
 author: 이영서
 editions: ["Classic", "Public Preview"]
 ---
 
-> 이 워크샵은 Copilot Studio의 **구(Classic) 버전과 신(New, Public Preview) 버전**을
+> 이 워크샵은 Copilot Studio의 **Classic 버전과 New(Public Preview) 버전**을
 > 한 흐름으로 다룹니다. 아래 목차는 초안이며, 각 섹션은 계속 보완될 예정입니다.
 
 <div class="wsp-credits">
@@ -96,9 +96,9 @@ editions: ["Classic", "Public Preview"]
 </div>
 </div>
 
-> 📖 **전체 상세 비교** — Agent Builder 규제 적용 예시와 Copilot Studio **구(Classic) vs 신(New)** 경험 차이(스크린샷 포함)는 별도 페이지에 정리했습니다. → **[Agent Builder vs Copilot Studio 상세 비교 (한국어)]({{ '/labs/agentbuilder-vs-studio-kr/' | relative_url }})**
+> 📖 **전체 상세 비교** — Agent Builder 규제 적용 예시와 Copilot Studio **Classic vs New** 경험 차이(스크린샷 포함)는 별도 페이지에 정리했습니다. → **[Agent Builder vs Copilot Studio 상세 비교 (한국어)]({{ '/labs/agentbuilder-vs-studio-kr/' | relative_url }})**
 
-## 2. 구(Classic) Copilot Studio — 기본 개념 & 핸즈온
+## 2. Classic Copilot Studio — 기본 개념 & 핸즈온
 
 기존(Classic) Copilot Studio의 핵심 작성 모델(에이전트·토픽·지식·도구·변수·채널)을 **개념부터 실습까지** 익힙니다. 아래 세 갈래로 나눠 추천하니, 원하는 출발점을 고르세요.
 
@@ -155,7 +155,7 @@ editions: ["Classic", "Public Preview"]
 </div>
 </div>
 
-> 📌 **모듈 3 · 랩 2(오케스트레이션)** 는 구(Classic)·신(New) 기능이 함께 섞여 있어, 아래 [4. Classic & New 한번에 같이 실습](#4-classic--new-한번에-같이-실습) 섹션에서 다룹니다.
+> 📌 **모듈 3 · 랩 2(오케스트레이션)** 는 Classic·New 기능이 함께 섞여 있어, 아래 [4. Classic & New 한번에 같이 실습](#4-classic--new-한번에-같이-실습) 섹션에서 다룹니다.
 
 ## 3. New Copilot Studio — 구조와 신규 워크플로우
 
@@ -163,7 +163,7 @@ editions: ["Classic", "Public Preview"]
 
 <a class="wsp-hero" href="{{ '/labs/new-copilot-studio-structure-kr/' | relative_url }}">
 <span class="hico">🏗️</span>
-<span class="htxt"><span class="hkick">구조 자세히 보기</span><span class="htitle">New Copilot Studio — 새로운 에이전트 아키텍처</span><span class="hdesc">왜 다시 만들었나 · AI 코어 재건축 · 구 vs 신 비교 · 6대 구성요소 · 영상 · 핸즈온</span></span>
+<span class="htxt"><span class="hkick">구조 자세히 보기</span><span class="htitle">New Copilot Studio — 새로운 에이전트 아키텍처</span><span class="hdesc">왜 다시 만들었나 · AI 코어 재건축 · Classic vs New 비교 · 6대 구성요소 · 영상 · 핸즈온</span></span>
 <span class="hgo">→</span>
 </a>
 
@@ -188,13 +188,13 @@ editions: ["Classic", "Public Preview"]
 
 ## 4. Classic & New 한번에 같이 실습
 
-구(Classic)와 신(New) 기능이 **함께 섞이는** 생성형 오케스트레이션을 한 흐름으로 실습하고, 그 개념을 적용해 직접 만든 워크플로우 오리지널까지 완성하는 섹션입니다. (워크플로우 자체의 개념·랩 3은 위 **3. New Copilot Studio** 섹션에서 다룹니다.)
+Classic과 New 기능이 **함께 섞이는** 생성형 오케스트레이션을 한 흐름으로 실습하고, 그 개념을 적용해 직접 만든 워크플로우 오리지널까지 완성하는 섹션입니다. (워크플로우 자체의 개념·랩 3은 위 **3. New Copilot Studio** 섹션에서 다룹니다.)
 
 > **출처 및 라이선스** — 원문 [microsoft/mcs-labs](https://github.com/microsoft/mcs-labs) (MIT © Microsoft)를 번역·재구성했습니다. 라이선스 전문: <https://github.com/microsoft/mcs-labs/blob/main/LICENSE>
 
 ### 4.1 모듈 3 · 랩 2 — 오케스트레이션과 동적 체이닝
 
-생성형 오케스트레이션 플래너가 매 턴 **어떤 도구·지식·연결 에이전트로 라우팅할지** 결정하는 방식과, 이를 좌우하는 **Instructions(지침)·Descriptions(설명)**, 그리고 한 턴에 작업을 끝까지 완료하는 **New Orchestrator(에이전틱 추론 루프)** 를 다룹니다. 구(Classic)의 표준 오케스트레이션과 신(New)의 추론 루프가 함께 등장하는 **구·신을 잇는 핵심 주제**입니다.
+생성형 오케스트레이션 플래너가 매 턴 **어떤 도구·지식·연결 에이전트로 라우팅할지** 결정하는 방식과, 이를 좌우하는 **Instructions(지침)·Descriptions(설명)**, 그리고 한 턴에 작업을 끝까지 완료하는 **New Orchestrator(에이전틱 추론 루프)** 를 다룹니다. Classic의 표준 오케스트레이션과 New의 추론 루프가 함께 등장하는 **Classic·New를 잉는 핵심 주제**입니다.
 
 <div class="wsp-group" style="--accent:#5B5FC7;">
 <div class="wsp-grid">
@@ -241,6 +241,12 @@ editions: ["Classic", "Public Preview"]
 ### 5.1 모듈 5 — 개발자 도구용 Copilot Studio 플러그인
 
 > **레벨** 300 · **출처** [Copilot Studio Plugin](https://microsoft.github.io/mcs-labs/modules/copilot-studio-plugin/) · [슬라이드(PPT) 다운로드](https://github.com/microsoft/mcs-labs/raw/main/presentations/bootcamp/13.%20Skills%20for%20Copilot%20Studio_CB.pptx) · MIT © Microsoft
+
+<a class="wsp-hero" href="https://github.com/microsoft/skills-for-copilot-studio" target="_blank" rel="noopener">
+<span class="hico">🧩</span>
+<span class="htxt"><span class="hkick">GitHub 저장소 · MIT · ★ 300+</span><span class="htitle">microsoft/skills-for-copilot-studio</span><span class="hdesc">AI 코딩 도구(Claude Code · GitHub Copilot CLI · VS Code)로 Copilot Studio 에이전트를 YAML로 작성·편집·테스트 — 스키마 검증·템플릿·AI 스킬 내장. manage·author·test·advisor 4개 서브에이전트 제공.</span></span>
+<span class="hgo">↗</span>
+</a>
 
 **Claude Code · GitHub Copilot CLI · VS Code**에서 **YAML 파일로 Copilot Studio 에이전트를 작성·테스트·문제 해결**하는 플러그인입니다. 터미널/에디터에서 바로 클라우드의 에이전트를 다룰 수 있습니다.
 
