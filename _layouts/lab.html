@@ -12,6 +12,7 @@ layout: default
       <h1 class="lab-title">{{ page.title }}</h1>
       {% if page.summary %}<p class="lab-summary">{{ page.summary }}</p>{% endif %}
       <div class="lab-badges">
+        {% if page.edition %}<span class="badge badge-edition {% if page.edition contains 'Preview' %}badge-edition-new{% else %}badge-edition-classic{% endif %}">{{ page.edition }}</span>{% endif %}
         {% if page.level %}<span class="badge level level-{{ page.level }}">Level {{ page.level }}</span>{% endif %}
         {% if page.time %}<span class="badge">⏱ {{ page.time }}</span>{% endif %}
         {% if page.audience %}<span class="badge">👤 {{ page.audience }}</span>{% endif %}

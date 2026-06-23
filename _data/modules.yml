@@ -1,7 +1,9 @@
 # 홈페이지 모듈/실습 구성 데이터
 # 새로운 섹션을 추가하려면 이 파일에 모듈 블록을 추가하고 labs/ 폴더에 페이지를 만드세요.
+# version: classic = 정식 출시(Classic) Copilot Studio / new = 신규(Public Preview)
 
 - id: agentacademy
+  version: classic
   title: AgentAcademy — 커스텀 에이전트 초급
   icon: "🎓"
   badge: Workshop
@@ -36,6 +38,7 @@
       tags: [MCP, Tools]
 
 - id: agentthon
+  version: classic
   title: Agentthon-26-MSKorea — 멀티 에이전트 실습
   icon: "🧭"
   badge: 에이전톤
@@ -58,6 +61,7 @@
       tags: [Trigger, Automation]
 
 - id: vnet
+  version: classic
   title: CPS-Vnet-Integration — 엔터프라이즈 보안
   icon: "🔒"
   badge: VNet
@@ -73,6 +77,7 @@
       tags: [VNet, Security, Azure]
 
 - id: docgen
+  version: classic
   title: document-generation — 문서 자동화
   icon: "📄"
   badge: Vision
@@ -88,10 +93,11 @@
       tags: [Vision, Power Automate, Document]
 
 - id: dailybrief
+  version: new
   title: daily-brief-workflow — 신규 Workflow
   icon: "📊"
-  badge: New
-  accent: "#0078D4"
+  badge: Public Preview
+  accent: "#5B5FC7"
   description: >-
     Workflow + Custom Structured Output + Researcher node로 매일 뉴스 브리프를
     자동 생성·발송하는 신규 기능 핸즈온.

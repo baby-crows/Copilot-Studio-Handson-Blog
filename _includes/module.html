@@ -1,0 +1,31 @@
+{%- assign module = include.module -%}
+<section class="module" id="{{ module.id }}">
+  <div class="module-head" style="--accent: {{ module.accent }};">
+    <span class="module-icon">{{ module.icon }}</span>
+    <div class="module-meta">
+      <div class="module-titlerow">
+        <h2>{{ module.title }}</h2>
+        {% if module.badge %}<span class="module-badge">{{ module.badge }}</span>{% endif %}
+      </div>
+      <p>{{ module.description }}</p>
+    </div>
+  </div>
+  <div class="card-grid">
+    {% for lab in module.labs %}
+    <a class="card" href="{{ lab.url | relative_url }}" style="--accent: {{ module.accent }};">
+      <div class="card-top">
+        <span class="level level-{{ lab.level }}">Level {{ lab.level }}</span>
+        <span class="card-time">⏱ {{ lab.time }}</span>
+      </div>
+      <h3 class="card-title">{{ lab.title }}</h3>
+      <p class="card-summary">{{ lab.summary }}</p>
+      {% if lab.tags %}
+      <div class="card-tags">
+        {% for tag in lab.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+      </div>
+      {% endif %}
+      <span class="card-cta">실습 열기 →</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>

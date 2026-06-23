@@ -18,12 +18,22 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-# labs/ 하위 모든 페이지에 lab 레이아웃 기본 적용
+# labs/ 하위 모든 페이지에 lab 레이아웃 + 작성자 + 에디션(기본 Classic) 적용
 defaults:
   - scope:
       path: "labs"
     values:
       layout: lab
+      author: "이영서"
+      edition: "Classic"
+  - scope:
+      path: "labs/daily-brief-kr"
+    values:
+      edition: "Public Preview"
+  - scope:
+      path: "labs/daily-brief-en"
+    values:
+      edition: "Public Preview"
 
 exclude:
   - Gemfile
