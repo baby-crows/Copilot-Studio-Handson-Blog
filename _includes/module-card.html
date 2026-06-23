@@ -1,0 +1,10 @@
+{%- assign module = include.module -%}
+<a class="card module-card" href="{{ '/modules/' | append: module.id | append: '/' | relative_url }}" style="--accent: {{ module.accent }};">
+  <div class="card-top">
+    <span class="module-card-icon">{{ module.icon }}</span>
+    {% if module.badge %}<span class="module-badge">{{ module.badge }}</span>{% endif %}
+  </div>
+  <h3 class="card-title">{{ module.title }}</h3>
+  <p class="card-summary">{{ module.description }}</p>
+  <span class="card-cta">{{ module.labs | size }}개 실습 →</span>
+</a>

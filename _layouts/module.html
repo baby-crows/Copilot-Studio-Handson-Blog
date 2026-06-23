@@ -1,0 +1,49 @@
+---
+layout: default
+---
+{% assign module = site.data.modules | where: "id", page.module_id | first %}
+{% if module.version == "new" %}{% assign ed_label = "Public Preview" %}{% assign ed_cls = "badge-edition-new" %}{% else %}{% assign ed_label = "Classic" %}{% assign ed_cls = "badge-edition-classic" %}{% endif %}
+<article class="lab">
+  <div class="lab-banner" style="--accent: {{ module.accent }};">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="{{ '/' | relative_url }}">홈</a>
+        <span>/</span>
+        <a href="{{ '/' | relative_url }}#edition-{{ module.version }}">{{ ed_label }}</a>
+        <span>/</span><span aria-current="page">{{ module.title }}</span>
+      </nav>
+      <h1 class="lab-title">{{ module.icon }} {{ module.title }}</h1>
+      {% if module.description %}<p class="lab-summary">{{ module.description }}</p>{% endif %}
+      <div class="lab-badges">
+        <span class="badge badge-edition {{ ed_cls }}">{{ ed_label }}</span>
+        {% if module.badge %}<span class="badge">{{ module.badge }}</span>{% endif %}
+        <span class="badge">📚 {{ module.labs | size }}개 실습</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container module-detail">
+    <div class="card-grid">
+      {% for lab in module.labs %}
+      <a class="card" href="{{ lab.url | relative_url }}" style="--accent: {{ module.accent }};">
+        <div class="card-top">
+          <span class="level level-{{ lab.level }}">Level {{ lab.level }}</span>
+          <span class="card-time">⏱ {{ lab.time }}</span>
+        </div>
+        <h3 class="card-title">{{ lab.title }}</h3>
+        <p class="card-summary">{{ lab.summary }}</p>
+        {% if lab.tags %}
+        <div class="card-tags">
+          {% for tag in lab.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+        </div>
+        {% endif %}
+        <span class="card-cta">실습 열기 →</span>
+      </a>
+      {% endfor %}
+    </div>
+
+    <div class="lab-source">
+      <a href="{{ '/' | relative_url }}">← 전체 모듈로 돌아가기</a>
+    </div>
+  </div>
+</article>

@@ -6,7 +6,7 @@ layout: default
     <div class="container">
       <nav class="breadcrumb" aria-label="breadcrumb">
         <a href="{{ '/' | relative_url }}">홈</a>
-        {% if page.module %}<span>/</span><a href="{{ '/' | relative_url }}#{{ page.module_id }}">{{ page.module }}</a>{% endif %}
+        {% if page.module %}<span>/</span><a href="{{ '/modules/' | append: page.module_id | append: '/' | relative_url }}">{{ page.module }}</a>{% endif %}
         <span>/</span><span aria-current="page">{{ page.title }}</span>
       </nav>
       <h1 class="lab-title">{{ page.title }}</h1>

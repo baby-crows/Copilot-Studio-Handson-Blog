@@ -10,11 +10,6 @@ layout: default
       <a class="btn btn-primary" href="#edition-classic">Classic 실습</a>
       <a class="btn btn-ghost" href="#edition-new">New · Public Preview</a>
     </div>
-    <ul class="hero-stats">
-      <li><strong>2</strong><span>에디션</span></li>
-      <li><strong>10</strong><span>실습</span></li>
-      <li><strong>100+</strong><span>스크린샷</span></li>
-    </ul>
   </div>
 </section>
 
@@ -28,39 +23,35 @@ layout: default
     <div class="edition-head edition-classic">
       <span class="edition-tag">Classic</span>
       <div class="edition-meta">
-        <h2 class="edition-title">Classic Edition <span class="edition-sub">정식 출시(GA)</span></h2>
-        <p class="edition-desc">현재 일반 공급되는 Copilot Studio 기능으로 구성된 실습입니다. 커스텀 에이전트, 멀티 에이전트, MCP, 엔터프라이즈 보안(VNet), 문서 자동화.</p>
+        <h2 class="edition-title">Classic Edition <span class="edition-sub">정식 출시 · GA</span></h2>
+        <p class="edition-desc">일반 공급되는 Copilot Studio 기능으로 구성된 실습 모음입니다. 카드를 눌러 세부 실습으로 이동하세요.</p>
       </div>
     </div>
-    {% for module in classic_modules %}{% include module.html module=module %}{% endfor %}
+    <div class="card-grid">
+      {% for module in classic_modules %}{% include module-card.html module=module %}{% endfor %}
+    </div>
   </section>
 
   <section class="edition" id="edition-new">
     <div class="edition-head edition-new">
       <span class="edition-tag">Public Preview</span>
       <div class="edition-meta">
-        <h2 class="edition-title">New Edition <span class="edition-sub">공개 미리 보기(Public Preview)</span></h2>
-        <p class="edition-desc">새로운 Copilot Studio의 신규 기능 — Workflow, Custom Structured Output, Researcher 노드 등. 기능이 변경될 수 있습니다.</p>
+        <h2 class="edition-title">New Edition <span class="edition-sub">공개 미리 보기 · Public Preview</span></h2>
+        <p class="edition-desc">새로운 Copilot Studio의 신규 기능(Workflow, Researcher 노드 등). 기능이 변경될 수 있습니다.</p>
       </div>
     </div>
-    {% for module in new_modules %}{% include module.html module=module %}{% endfor %}
-
-    <section class="module module-coming" id="new-copilot-studio">
-      <div class="module-head" style="--accent:#5B5FC7;">
-        <span class="module-icon">✨</span>
-        <div class="module-meta">
-          <div class="module-titlerow">
-            <h2>New Copilot Studio</h2>
-            <span class="module-badge">예정</span>
-          </div>
-          <p>새로운 Copilot Studio 버전에 대한 추가 섹션이 곧 작성될 예정입니다.</p>
+    <div class="card-grid">
+      {% for module in new_modules %}{% include module-card.html module=module %}{% endfor %}
+      <div class="card card-coming">
+        <div class="card-top">
+          <span class="module-card-icon">✨</span>
+          <span class="module-badge">예정</span>
         </div>
+        <h3 class="card-title">New Copilot Studio</h3>
+        <p class="card-summary">새로운 Copilot Studio 버전에 대한 추가 섹션이 곧 작성될 예정입니다.</p>
+        <span class="card-cta card-cta-muted">준비 중</span>
       </div>
-      <div class="coming-note">
-        이 영역은 작성자가 직접 콘텐츠를 추가할 자리입니다. <code>_data/modules.yml</code>에 <code>version: new</code> 모듈을 추가하고
-        <code>labs/</code> 폴더에 페이지를 만들면 자동으로 카드가 생성됩니다.
-      </div>
-    </section>
+    </div>
   </section>
 
   <section class="author-section" id="author">
