@@ -65,7 +65,7 @@ editions: ["Classic", "Public Preview"]
 | 09:15 | **[모듈 1 — 핵심 개념 개요](#42-모듈-1--copilot-studio-핵심-개념-개요)** | 200 | 30분 |
 | 09:45 | **[모듈 2 — 도구(Tools)](#43-모듈-2--copilot-studio-도구tools)** | 300 | 30분 |
 | 10:15 | 커피 브레이크 / Q&A | — | 15분 |
-| 10:30 | **[랩 1 — 도구(Tools)](https://microsoft.github.io/mcs-labs/labs/mcs-tools/?event=advanced-agent-in-a-day)** | 300 | 60분 |
+| 10:30 | **[랩 1 — 도구(Tools)]({{ '/labs/mcs-tools-kr/' | relative_url }})** | 300 | 60분 |
 | 11:30 | **[모듈 3 — 오케스트레이션과 동적 체이닝](#44-모듈-3--오케스트레이션과-동적-체이닝)** | 300 | 45분 |
 | 12:15 | 점심 | — | 60분 |
 | 13:15 | **[랩 2 — 오케스트레이션](https://microsoft.github.io/mcs-labs/labs/mcs-orchestration/?event=advanced-agent-in-a-day)** | 300 | 60분 |
@@ -114,7 +114,7 @@ editions: ["Classic", "Public Preview"]
 ### 4.3 모듈 2 — Copilot Studio 도구(Tools)
 
 > **레벨** 300 · **소요** 30분 · **출처** [Copilot Studio Tools](https://microsoft.github.io/mcs-labs/modules/tools-overview/) · [슬라이드(PPT) 다운로드](https://github.com/microsoft/mcs-labs/raw/main/presentations/bootcamp/08.%20Copilot%20Studio%20Tools%20Overview%20RRS_CB.pptx) · MIT © Microsoft
-> **연계 랩** → [랩 1: Copilot Studio Tools](https://microsoft.github.io/mcs-labs/labs/mcs-tools/?event=advanced-agent-in-a-day)
+> **연계 랩** → [랩 1: Copilot Studio 도구(Tools) — 한국어 클론]({{ '/labs/mcs-tools-kr/' | relative_url }}) · [원문(영어)](https://microsoft.github.io/mcs-labs/labs/mcs-tools/?event=advanced-agent-in-a-day)
 
 에이전트가 단순 대화를 넘어 **실제 행동(시스템 연결·프로세스 자동화·기록 작성)**을 하도록 만드는 도구 생태계를 다룹니다. 오케스트레이터가 에이전트 지침과 사용자 입력에 따라 어떤 도구를 호출할지 결정합니다.
 
