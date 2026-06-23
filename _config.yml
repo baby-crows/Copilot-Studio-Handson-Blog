@@ -1,0 +1,36 @@
+title: Copilot Studio Hands-on
+tagline: Microsoft Copilot Studio 실습 블로그
+description: >-
+  Microsoft Copilot Studio를 활용한 AI 에이전트 개발 실습 모음.
+  기본 에이전트 생성부터 멀티 에이전트, 엔터프라이즈 보안, 문서 자동화, 신규 Workflow까지.
+author: Youngseo Lee
+lang: ko
+
+# GitHub Pages 프로젝트 사이트 기준 (https://<user>.github.io/Copilot-Studio-Handson-Blog/)
+# 로컬에서 루트로 띄우려면 빈 문자열로 변경하세요.
+baseurl: "/Copilot-Studio-Handson-Blog"
+url: ""
+
+# Build
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# labs/ 하위 모든 페이지에 lab 레이아웃 기본 적용
+defaults:
+  - scope:
+      path: "labs"
+    values:
+      layout: lab
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .gitignore
+  - _src_handson
+
+plugins:
+  - jekyll-feed

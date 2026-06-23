@@ -1,0 +1,110 @@
+# 홈페이지 모듈/실습 구성 데이터
+# 새로운 섹션을 추가하려면 이 파일에 모듈 블록을 추가하고 labs/ 폴더에 페이지를 만드세요.
+
+- id: agentacademy
+  title: AgentAcademy — 커스텀 에이전트 초급
+  icon: "🎓"
+  badge: Workshop
+  accent: "#0078D4"
+  description: >-
+    채용 에이전트를 예제로 Copilot Studio의 핵심 기능을 단계별로 학습합니다.
+    원 출처는 Microsoft Agent Academy Operative.
+  labs:
+    - title: "A1 · 채용 에이전트 시작하기"
+      url: /labs/agentacademy-a1/
+      level: 100
+      time: "20분"
+      summary: 기본 인프라 배포 및 중앙 오케스트레이터 에이전트 생성.
+      tags: [Introduction, Provisioning]
+    - title: "A2 · 에이전트 모델 이해"
+      url: /labs/agentacademy-a2/
+      level: 200
+      time: "25분"
+      summary: 사용 사례에 최적화된 AI 모델 선택과 성능 특성 비교.
+      tags: [Models, Optimization]
+    - title: "A3 · 멀티 에이전트"
+      url: /labs/agentacademy-a3/
+      level: 300
+      time: "40분"
+      summary: Child Agent vs Connected Agent — 확장 가능한 멀티 에이전트 아키텍처.
+      tags: [Multi-Agent, Architecture]
+    - title: "A4 · MCP 서버 연결"
+      url: /labs/agentacademy-a4/
+      level: 300
+      time: "30분"
+      summary: Model Context Protocol(MCP) 서버를 Copilot Studio 에이전트에 통합.
+      tags: [MCP, Tools]
+
+- id: agentthon
+  title: Agentthon-26-MSKorea — 멀티 에이전트 실습
+  icon: "🧭"
+  badge: 에이전톤
+  accent: "#8661C5"
+  description: >-
+    여러 에이전트가 역할을 분담해 협업하는 출장 도우미 멀티 에이전트 Copilot 실습.
+    작성자 Solution Engineer 이영서.
+  labs:
+    - title: "멀티 에이전트 가이드"
+      url: /labs/agentthon-multi-agent/
+      level: 300
+      time: "60분"
+      summary: 오케스트레이터 + 규정 에이전트 + 현지 가이드 협업 아키텍처 설계·구현.
+      tags: [Multi-Agent, Orchestration]
+    - title: "트리거 구성"
+      url: /labs/agentthon-trigger/
+      level: 200
+      time: "15분"
+      summary: 이벤트 기반 트리거로 에이전트 자동화 구성.
+      tags: [Trigger, Automation]
+
+- id: vnet
+  title: CPS-Vnet-Integration — 엔터프라이즈 보안
+  icon: "🔒"
+  badge: VNet
+  accent: "#107C10"
+  description: >-
+    Copilot Studio 에이전트를 Azure 프라이빗 네트워크(VNet)와 안전하게 통합하는 방법.
+  labs:
+    - title: "VNet 통합 가이드"
+      url: /labs/cps-vnet/
+      level: 400
+      time: "45분"
+      summary: Power Platform 환경의 VNet 지원 활성화 및 Azure 리소스 프라이빗 연결.
+      tags: [VNet, Security, Azure]
+
+- id: docgen
+  title: document-generation — 문서 자동화
+  icon: "📄"
+  badge: Vision
+  accent: "#D83B01"
+  description: >-
+    견적서 이미지 한 장으로 품의서를 자동 생성하는 Vision + Prompt + Flow 실습.
+  labs:
+    - title: "견적서 → 품의서 자동 생성"
+      url: /labs/document-generation/
+      level: 200
+      time: "40분"
+      summary: Vision(OCR) + 구조화 추출 + Word 템플릿 자동 채움 승인 플로우.
+      tags: [Vision, Power Automate, Document]
+
+- id: dailybrief
+  title: daily-brief-workflow — 신규 Workflow
+  icon: "📊"
+  badge: New
+  accent: "#0078D4"
+  description: >-
+    Workflow + Custom Structured Output + Researcher node로 매일 뉴스 브리프를
+    자동 생성·발송하는 신규 기능 핸즈온.
+  labs:
+    - title: "Daily Brief Workflow (한국어)"
+      url: /labs/daily-brief-kr/
+      level: 300
+      time: "30분"
+      summary: Researcher 노드 웹 수집 + 멀티 에이전트 파이프라인 + SharePoint/메일 자동화.
+      tags: [Workflow, Researcher, Structured Output]
+    - title: "Daily Brief Workflow (English)"
+      url: /labs/daily-brief-en/
+      level: 300
+      time: "30분"
+      summary: English version of the Daily Brief workflow hands-on guide.
+      tags: [Workflow, Researcher, Structured Output]

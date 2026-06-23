@@ -1,0 +1,743 @@
+---
+layout: lab
+title: "Agentthon · 멀티 에이전트 가이드"
+summary: "출장 도우미 오케스트레이터 + 규정 에이전트 + 현지 가이드 협업 아키텍처 설계·구현."
+module: "Agentthon-26-MSKorea — 멀티 에이전트 실습"
+module_id: agentthon
+level: 300
+time: "60분"
+audience: "Maker"
+author: "이영서"
+accent: "#8661C5"
+tags: ["Multi-Agent", "Orchestration"]
+prev_url: /labs/agentacademy-a4/
+prev_title: "A4 · MCP 서버 연결"
+next_url: /labs/agentthon-trigger/
+next_title: "Agentthon · 트리거 구성"
+source_url: "https://github.com/baby-crows/Copilot-Studio-Hands-on/blob/main/Agentthon-26-MSKorea/1.%20Multi_Agent_Guide.md"
+---
+
+# 에이전톤 로우코드 데이: Copilot Studio편 실습 가이드
+
+**작성자: Solution Engineer 이영서**
+
+## 1. 실습의 최종 목표 한눈에 보기
+
+이번 실습의 목표는  
+**여러 개의 에이전트가 역할을 나누어 협업하는 멀티 에이전트 Copilot**을 만드는 것입니다.
+
+### 실습 멀티 에이전트 구성
+
+이번 실습의 에이전트 흐름 
+```text
+[User]
+  ↓
+[출장 도우미 오케스트레이터]
+  ├─ Intent 분석
+  │    ├─ 규정 문의 / 현지 정보 / 일정 등록 의도 분류
+  │    └─ 질문이 모호할 경우 Clarifying Question
+  │
+  ├─ Slot Filling (필수 정보 확인)
+  │    └─ 출장 목적지(도시 또는 국가)
+  │         └ 없을 경우 목적지 먼저 질의
+  │
+  ├─ Routing Logic (1차 라우팅)
+  │    ├─ 비용·규정 관련 질문
+  │    │    → [출장 규정 전담 에이전트]
+  │    │
+  │    └─ 날씨·준비물·생활 정보 질문
+  │         → [현지 가이드]
+  │
+  ├─ Chained Invocation (조건부 연계)
+  │    └ 규정 담당관 호출 + 목적지 확정 시
+  │         → 자동으로 [현지 가이드] 추가 호출
+  │
+  ├─ 출장 의도 감지
+  │    └ 규정 전담 에이전트 또는 현지 가이드가 호출되면
+  │         → 출장 의지로 해석
+  │         → [출장 일정 등록] 토픽 자동 실행
+  │
+  └─ 최종 응답 조합
+       └ 각 하위 에이전트 / 토픽의 결과를
+          하나의 자연스러운 사용자 응답으로 전달
+
+
+```
+
+이번 실습에서 사용하는 에이전트 구성은 다음과 같습니다.
+
+| 역할 | 설명 |
+|---|---|
+| **오케스트레이터 에이전트** | 사용자의 질문 의도를 분석하여, 하위 에이전트를 호출하거나 이벤트 등록 토픽을 호출하여 전체 과정 조율 |
+| **출장 규정 전담 에이전트** | 국내/해외 출장 규정(PDF)을 근거로 비용·규정 안내 |
+| **현지 가이드 에이전트** | MSN Weather 등 도구를 활용해 날씨·준비물·생활 정보 안내 |
+
+### 사용자 입력 예시
+
+> "부산 출장 가는데 KTX 특실 타도 돼?"
+
+### 시스템이 자동으로 수행해야 할 일
+
+- 출장 의도 인식
+- 적절한 전문 에이전트 자동 호출
+    - 규정 질문 → 출장 규정 전담 에이전트  
+   - 현지 정보 질문 → 현지 가이드
+- 규정에 관련해서는, 국내 / 해외 출장 구분하여 정책 파일 참조 후 답변
+- 규정에 대해서만 물어도, 목적지가 정확하면 자동으로 현지 가이드 에이전트 호출하여 현지 정보 제공
+- 목적지가 정확하거나 사용자가 요청했다면, 출장 일정 Outlook 캘린더 자동 등록
+
+## 2. 테스트 질문 예시 (완성 후 기대 동작)
+
+### 2-1. 국내 출장
+
+| No | 질문 | 기대 답변 | 검증 포인트 |
+|---|---|---|---|
+| 1 | 부산 출장 가는데 KTX 특실 타도 돼? | 가능 (제4조) | 직급(M3) 인식 |
+| 2 | 광주 광역시 숙박비 한도 얼마야? | 120,000원 (제6조) | 광역시 판별 |
+| 3 | 세종시 출장인데 숙박비 10만 원 가능? | 불가 (9만 원) | 기타 지역 판별 |
+| 4 | 제주도 10일 출장 할인 규정 있어? | 10% 감액 | 조건부 규정 |
+| 5 | 내 차로 가면 기름값 얼마 줘? | km당 200원 | 단순 규정 조회 |
+
+### 2-2. 해외 출장
+
+| No | 질문 | 기대 답변 | 검증 포인트 |
+|---|---|---|---|
+| 6 | 프라하 출장 비즈니스석 가능? | 가능 | 멀티 에이전트 분기 |
+| 7 | 도쿄 출장 비즈니스석 가능? | 불가 | 단거리 판단 |
+| 8 | 런던 출장 하루 체류비 얼마야? | $180 | 지역 그룹핑 |
+| 9 | 점심 제공되면 체류비 다 받아? | 20% 차감 | 예외 조항 |
+|10 | 여권 재발급 비용 회사에서 줘? | 실비 지원 | 복지 규정 |
+
+## 3. 실습 전체 흐름 요약
+
+1. **오케스트레이터 에이전트 생성**
+2. **출장 규정 전담 에이전트 생성 + PDF 지식 연결**
+3. **현지 가이드 에이전트 생성 + MSN Weather 도구 연결**
+4. **출장 일정 등록 토픽 생성 (Outlook 캘린더 연동)**
+5. **오케스트레이터 지침 동적 연결**
+
+
+## 4. 실습 전 체크 리스트
+- 에이전트 만들 수 있는 환경 맞는지 체킹 
+- [실습용 PDF 국내/국외 정책 파일 2개](https://github.com/monator16/Copilot-Studio-Hands-on/tree/main/Agentthon-26-MSKorea/SampleData) 다운로드 완료 
+
+## 5. 실습 ① : 오케스트레이터 에이전트 생성
+
+### 5-1. 새 에이전트 생성
+빈 에이전트 만들기 선택 
+![alt text](image_1/image.png)
+에이전트 프로비전 될 떄까지 대기 
+![alt text](image_1/image-1.png)
+
+
+### 5-2. 기본 정보 설정
+에이전트 이름 및 설명 변경
+![alt text](image_1/image-2.png)
+- 이름
+```text
+출장 도우미 오케스트레이터
+```
+- 설명
+```text
+사용자의 출장 의도(규정 문의 또는 현지 정보 확인)를 파악하여, 가장 적합한 전문 에이전트에게 연결해 주는 지능형 통합 출장 비서입니다.
+```
+
+### 5-3. 필수 설정 변경
+
+| 설정 | 값 |
+| --- | --- |
+| 콘텐츠 조정 (Content Moderation) | **보통(Moderate)** |
+|  일반 지식 사용 (Use general knowledge) | **끄기(Off)** |
+| 웹 정보 사용 (Use information from the Web) | **끄기(Off)** |
+| File uploads (파일 업로드) | **On** |
+
+
+- 오늘 다룰 실습은 기본 설정에서 위 설정만 변경해줘도 괜찮습니다.
+- 아래 사진과 비교해서 잘 됐는지 확인할 수 있습니다.
+
+![alt text](image_1/image-3.png)
+
+![alt text](image_1/image-4.png)
+
+![alt text](image_1/image-5.png)
+
+### 5-4. 오케스트레이터 지침 추가
+![alt text](image_1/image-6.png)
+
+- 지침 부분에 아래 내용을 복사 붙여넣기 합니다.
+- 붙여넣기 할 때 ctrl + shift + v로 텍스트만 붙여넣으면 아래 구조가 유지된 채로 붙여넣어집니다. 
+
+
+```text
+당신은 임직원의 안전하고 편안한 출장을 돕는 '출장 도우미 오케스트레이터(Travel Orchestrator)'입니다.
+당신은 직접 답변하지 않으며, 사용자의 질문 의도를 파악하여 적절한 전문가 에이전트에게 연결하는 역할을 수행합니다.
+
+
+### 1. 역할 및 라우팅 기준
+사용자의 질문을 분석하여 다음 두 가지 전문가 중 하나를 호출하십시오.
+
+#### A. 규정 담당관 (Policy Expert) /{출장 규정 전담 에이전트} 
+- 호출 기준: 회사 내부 규정, 비용, 지원 한도에 대한 질문인 경우.
+- 주요 키워드: 식대, 숙박비, 항공권, KTX, 일비, 여비, 결제 방법, 영수증, 규정, 지원금.
+- 예시: "부산 숙박비 한도가 얼마야?", "프라하 갈 때 비즈니스석 탈 수 있어?"
+
+#### B. 현지 가이드 (Field Guide) /{현지 가이드}
+- 호출 기준: 출장지의 실시간 환경, 준비물, 생활 정보에 대한 질문인 경우.
+- 주요 키워드: 날씨, 기온, 옷차림, 우산, 환율, 시차, 현지 팁, 준비물 추천.
+- 예시: "지금 프라하 날씨 어때?", "내일 도쿄 가는데 옷 뭐 챙겨갈까?", "100달러가 한국 돈으로 얼마야?"
+
+### 2. 필수 수행 절차 (Slot Filling)
+전문가 에이전트를 호출하기 전에, 사용자의 발화에 '출장 목적지(도시 또는 국가)'가 포함되어 있는지 확인하십시오.
+- 만약 목적지가 없다면, 어떤 에이전트를 호출할지 결정하기 전에 목적지를 먼저 물어보십시오.
+- (예: "정확한 안내를 위해 출장 가시는 도시나 국가를 먼저 알려주시겠습니까?")
+
+### 3. 출장 일정 등록
+사용자가 출장 일정 등록을 하고 싶으면 /{출장 일정 등록}  을 실행하세요 
+출장 일정을 직접적으로 말하지 않더라도, /{출장 규정 전담 에이전트} 이나 /{현지 가이드}  둘 중 하나가 호출된다면 출장 갈 의지가 있다는 것으로 해석하고 자동으로 /{출장 일정 등록} 를 실행하세요
+
+### 4. 제약 사항
+- 당신은 직접 지식이나 도구를 사용하지 마십시오. 반드시 하위 에이전트를 통해서만 정보를 제공하십시오.
+- 사용자의 질문이 모호하여(예: "출장 어때?") 규정과 날씨 중 무엇을 묻는지 알 수 없다면, 정중히 되물어 의도를 파악하십시오.
+- 규정 담당관이 호출되었고, 출장 목적지를 확실히 알 수 있는 경우에는 자동으로 바로 그 다음에 /{현지 가이드} 를 호출하시오 
+
+```
+
+> 참고
+> -  /{}로 표시된 부분은 동적으로 토픽/도구/에이전트를 할당해야 하는 부분입니다. 
+> - {}를 지우고 /만 남기면 마치 변수를 넣듯이, 현재 가지고 있는 토픽/도구/에이전트를 동적으로 할당할 수 있습니다. 우리는 아직 만든 토픽,도구,에이전트가 없기에 이후 단계에서 이를 수정하도록 하겠습니다. 
+
+## 6. 실습 ② : 하위 에이전트 구성 — **출장 규정 전담 에이전트**
+
+### 6-1. 에이전트 생성
+에이전트 메뉴 선택 후 [+추가] 버튼 클릭
+![alt text](image_1/image-7.png)
+
+새 자식 에이전트 선택
+![alt text](image_1/image-8.png)
+
+### 6-2. 기본 정보
+![alt text](image_1/image-9.png)
+
+
+- 이름
+```text
+출장 규정 전담 에이전트
+```
+- 설명(Description)
+```text
+사내 국내 및 해외 출장 규정 문서를 기반으로 항공권, 숙박비, 식대, 일비 등 비용 처리와 지원 한도에 대한 정확한 정보를 제공하는 내부 규정 전문가입니다.
+```
+
+> 참고: Advanced 설정에서 우선순위를 조정할 수 있으나, 본 실습에서는 기본값으로 진행합니다.
+
+### 6-3. 지침 설정
+![alt text](image_1/image-10.png)
+
+```text
+당신은 사내 '국내 및 해외 출장 규정' 전체를 관할하는 통합 규정 담당관입니다.
+오직 첨부된 두 가지 규정 문서(국내/해외)를 지식(Knowledge)으로 사용하여 신뢰할 수 있는 답변을 제공해야 합니다.
+
+### 답변 원칙
+
+#### 1. 출장지 기준 규정 적용 (Context Switching)
+사용자의 질문에 포함된 '출장지'를 분석하여 국내 규정을 적용할지 해외 규정을 적용할지 판단하십시오.
+- 국내 출장(서울, 부산, 제주, 강원도 등 대한민국 내): 반드시 [국내_출장_여비_지급_규정.pdf]의 내용을 인용하십시오.
+- 해외 출장(미국, 유럽, 일본, 베트남 등 대한민국 밖): 반드시 [해외_출장_및_글로벌_파견_규정.pdf]의 내용을 인용하십시오.
+
+#### 2. 통화 단위의 엄격한 구분
+출장지 유형에 따라 비용 단위를 섞지 말고 명확히 구분하십시오.
+- 국내 출장 답변 시: '원(KRW)' 단위만 사용하십시오.
+- 해외 출장 답변 시: '달러($)' 단위만 사용하십시오. (사용자가 원화로 환산해달라고 해도 규정에 적힌 달러 금액을 우선 안내하십시오.)
+
+#### 3. 직급 기반 혜택 확인
+사용자의 '직급(M3, 매니저, 사원 등)' 정보가 있다면, 해당 직급에 적용되는 차등 혜택을 찾아 안내하십시오.
+- 국내: 과장급 이상 KTX 특실 지원 여부 등
+- 해외: M3 이상 장거리 노선 비즈니스석 지원 여부 등
+
+#### 4. 답변 스타일
+- 정보 전달 시 개괄식으로, 혹은 표(Markdown Table) 형식을 적극 활용하여 가독성을 높이십시오. 
+- 답변의 근거가 되는 규정의 '제O조 O항'을 반드시 함께 명시하십시오.
+```
+### 6-4. 지식(Knowledge) 파일 추가
+참조 자료 추가 혹은 [+추가] 버튼을 선택합니다. 
+![alt text](image_1/image-11.png)
+파일 업로드를 선택합니다. 
+![alt text](image_1/image-13.png)
+사전에 다운로드한 실습 준비 파일 2개를 선택합니다
+![alt text](image_1/image-14.png)
+준비된 파일을 확인 후, 에이전트에 추가 버튼을 클릭합니다.
+![alt text](image_1/image-15.png)
+
+에이전트 저장
+![alt text](image_1/image-16.png)
+
+## 7. 실습 ③ : 연결된 에이전트 구성 — **현지 가이드**
+
+### 7-1. 에이전트 생성
+왼쪽 탐색 메뉴에서 **에이전트** 탭을 선택하고 **빈 에이전트 만들기**를 선택합니다.
+![alt text](image_1/image-18.png)
+
+### 7-2. 기본 정보
+
+- 이름
+```text
+현지 가이드
+```
+- 설명(Description)
+```text
+출장지의 실시간 날씨와 기온을 확인하여 적절한 옷차림과 필수 준비물을 추천하고, 안전한 현지 체류를 돕는 생활 정보 가이드입니다.
+```
+
+- 지침
+```text
+당신은 출장자의 안전하고 쾌적한 현지 체류를 돕는 '현지 가이드 에이전트'입니다.
+당신의 주된 역할은 목적지의 날씨와 환경 정보를 확인하여, 출장자가 무엇을 준비해야 할지 구체적인 조언을 제공하는 것입니다.
+
+### 도구 활용 원칙
+사용자가 특정 도시나 국가의 날씨/환경을 물어보면, 반드시 /{오늘 예보 가져오기} 을 사용하여 실시간 데이터를 조회하십시오.
+사용자의 질문에 날짜가 지정되지 않았다면 '현재' 기준으로 조회하고, 날짜가 있다면 해당 날짜의 예보를 조회하십시오.
+
+### 답변 구성 및 추론 (Reasoning)
+단순히 기온이나 날씨 상태만 나열하지 말고, 조회된 데이터를 바탕으로 다음과 같이 판단하여 제안하십시오.
+
+#### 1. 옷차림 추천
+- 기온 데이터를 분석하여 적절한 복장을 추천하십시오.
+- (예: 10도 이하 -> 두꺼운 코트나 경량 패딩 / 25도 이상 -> 반소매 및 얇은 겉옷)
+
+#### 2. 필수 준비물 제안 (우천/폭염 등)
+- 예시 1) 강수 확률이 있거나 비/눈 예보가 있다면 "우산이나 우비를 꼭 챙기세요"라고 조언하십시오. 
+- 예시 2) 자외선 지수가 높거나 맑은 날씨라면 "선글라스와 선크림"을 추천하십시오.
+- 자세한 사항은 웹검색을 통해 유용한 조언을 해주세요.
+
+#### 3. 생활 팁 제공
+- 날씨 외에도 환율 정보나 시차 정보를 함께 언급하여 비서로서의 세심함을 보여주십시오.
+- 이것 역시 웹검색을 적극 활용하세요. 필요한 경우 code interpreter도 활용하세요. 
+
+### 답변 스타일
+- 딱딱한 규정 담당관과 달리, 부드럽고 친절한 '비서'의 톤앤매너를 유지하십시오.
+- "성공적인 출장이 되시길 바랍니다!", "감기 조심하세요."와 같은 따뜻한 멘트를 덧붙이십시오.
+```
+
+> 이번 지침에도 역시 도구를 동적으로 언급해야 합니다. /{오늘 예보 가져오기} 이 부분은 나중에 수정해서 도구를 동적으로 언급하여, 에이전트가 보다 도구를 잘 활용하도록 할 계획입니다. 도구를 만든 후에 다시 짚도록 하겠습니다. 
+
+### 7-3. 설정 및 도구 연결
+설정을 클릭하여 콘텐츠 조정 수준을 보통으로 변경합니다. 
+![alt text](image_1/image-20.png)
+![alt text](image_1/image-19.png)
+
+도구 메뉴로 이동하여 도구 추가를 클릭합니다.
+![alt text](image_1/image-21.png)
+
+"커넥터" 중에서 MSN을 검색하여 **오늘 예보 가져오기**를 클릭합니다.
+![alt text](image_1/image-22.png)
+![alt text](image_1/image-23.png)
+
+오늘 예보 가져오기 커넥터의  **입력**에서 Units의 경우 사용자 지정 값-Metric을 선택합니다.
+![alt text](image_1/image-24.png)
+
+저장 버튼 클릭
+![alt text](image_1/image-25.png)
+
+### 7-4. 지침 내 동적 도구 할당
+* 지침 중 /{오늘 예보 가져오기}를 /오늘 예보 가져오기로 변경하면 자동으로 드롭다운이 뜹니다.여기서 우리가 도구로 추가한 **오늘 예보 가져오기 커넥터**를 선택해줍니다. 
+![alt text](image_1/image-26.png)
+![alt text](image_1/image-27.png)
+
+### 7-5. 에이전트 게시
+에이전트 게시를 진행합니다.
+![alt text](image_1/image-28.png)
+> 게시를 해야, 우리의 오케스트레이터 에이전트에서 해당 현지 가이드 에이전트를 연결하여 사용할 수 있습니다. 
+
+### 7-6. 오케스트레이터에 연결
+출장 오케스트레이터 에이전트로 다시 이동
+
+![alt text](image_1/image-29.png)
+
+에이전트 메뉴 선택 후 [+ 에이전트 추가] 버튼 클릭
+![alt text](image_1/image-17.png)
+
+**현지 가이드**를 선택하여 연결된 에이전트로 추가해줍니다.
+![alt text](image_1/image-30.png)
+
+## 8. 실습 ④ : 오케스트레이터 에이전트 개선 — **토픽 추가**
+
+지금까지는 출장 규정과 날씨는 잘 가져와주지만 어딘가 심심합니다. 출장을 가면 캘린더에 일정도 등록해야겠죠. 이 일정 등록까지 아웃룩에 자동으로 해준다면 아주 편할 것입니다.
+오케스트레이터 에이전트에 일정을 등록해주는 토픽을 추가해보겠습니다. 또한 인사말도 조금 수정해보겠습니다.
+
+즉 우리는 2가지 토픽을 수정해볼 겁니다.
+
+### 8-1. 토픽 작업 1 — 처음 인사말 수정
+1. 토픽 메뉴에서 **시스템** 토픽을 클릭하고, **대화 시작** 토픽을 클릭합니다. 
+![alt text](image_1/image-31.png)
+
+2. 아래 메시지를 인사로 지정하고, 이때 봇 이름에 대한 변수를 동적으로 지정해줍니다. 
+
+- 아래 텍스트 복사 후 붙여넣기
+
+```text
+안녕하세요, {Bot Name}
+​입니다. 출장 규정에 대해 궁금하신 점을 말해주세요. 출장지를 말씀해주시면  정확하게 답변 가능합니다.
+```
+
+- {Bot Name} 부분을 지운 후에, {x} 변수 삽입 버튼을 클릭하여 시스템 변수에서 Bot.Name 선택하여 삽입 
+![alt text](image_1/image-32.png)
+
+### 8-2. 토픽 작업 2 — **출장 일정 등록** 토픽
+
+#### (1) 트리거 노드
+1. 토픽 추가 버튼 클릭 후 새로 시작 선택
+![alt text](image_1/image-33.png)
+
+2. 토픽 제목 설정 및 **토픽이 수행하는 작업 설명**칸 채우기
+![alt text](image_1/image-34.png)
+
+* 토픽 제목
+```text
+출장 일정 등록 
+```
+
+* 토픽이 수행하는 작업 설명 
+```text
+사용자가 출장 일정을 등록하고 싶어한다면, 출장 시작일로부터 출장 일수 동안의 출장 일정을 Outlook 캘린더에 등록합니다.
+
+```
+#### (2) 적응형 카드로 질문 노드
+
+3. 트리거 이후 [+] 버튼을 클릭하여  **적응형 카드로 질문** 노드를 추가
+![alt text](image_1/image-35.png)
+
+4. 노드 클릭 후 **적응형 카드 편집** 버튼 클릭하기
+![alt text](image_1/image-36.png)
+
+5. 적응형 카드 수정 
+![alt text](image_1/image-37.png)
+
+* 아래 Json 복사 후, 카드 페이로드 편집기에 붙여넣기
+
+```json
+{
+    "type": "AdaptiveCard",
+    "$schema": "https://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.5",
+    "body": [
+        {
+            "type": "Container",
+            "style": "emphasis",
+            "bleed": true,
+            "items": [
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "width": "auto",
+                            "verticalContentAlignment": "Center",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "text": "🧳",
+                                    "size": "ExtraLarge",
+                                    "wrap": true
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "width": "stretch",
+                            "verticalContentAlignment": "Center",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "text": "출장 정보 입력",
+                                    "wrap": true,
+                                    "size": "Large",
+                                    "weight": "Bolder",
+                                    "spacing": "None"
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "text": "시작일 · 종료일 · 사유를 입력하고 **[확인]** 을 눌러주세요.",
+                                    "wrap": true,
+                                    "isSubtle": true,
+                                    "spacing": "Small"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "spacing": "Medium",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "📅 일정",
+                    "weight": "Bolder",
+                    "wrap": true,
+                    "spacing": "None"
+                },
+                {
+                    "type": "Input.Date",
+                    "id": "trip_start_date",
+                    "label": "출장 시작일",
+                    "isRequired": true,
+                    "errorMessage": "출장 시작일을 선택해 주세요."
+                },
+                {
+                    "type": "Input.Date",
+                    "id": "trip_end_date",
+                    "label": "출장 종료일",
+                    "isRequired": true,
+                    "errorMessage": "출장 종료일을 선택해 주세요.",
+                    "placeholder": "종료일 선택"
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "style": "default",
+            "spacing": "Medium",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "📝 사유",
+                    "weight": "Bolder",
+                    "wrap": true,
+                    "spacing": "None"
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "trip_reason",
+                    "label": "출장 사유",
+                    "placeholder": "예: 고객 온사이트 지원 / PoC 워크샵 / 장애 대응",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "출장 사유를 입력해 주세요."
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Tip: 사유는 **구체적으로** 적는 게 좋아요.",
+                    "wrap": true,
+                    "isSubtle": true,
+                    "spacing": "Small",
+                    "size": "Small"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.Submit",
+            "title": "확인",
+            "style": "positive"
+        }
+    ]
+}
+```
+* 아래처럼 카드 페이로드 편집기에 들어간 거 확인하기
+![alt text](image_1/image-38.png)
+
+* 저장 버튼 꼭 누르기
+![alt text](image_1/image-39.png)
+
+#### (3) 이벤트 만들기 노드 (Outlook)
+6. 적응형 카드 노드 이후 이어질 **이벤트 등록 관련** 노드 추가하기
+* **노드 추가 → 도구 추가 → 커넥터 → Outlook 검색 → "이벤트 만들기(V4)" 선택**  
+![alt text](image_1/image-40.png)
+* 연결 확인 후 제출 클릭
+![alt text](image_1/image-41.png)
+
+7. 생성한 이벤트 만들기 노드 클릭한 후 입력 탭 들어가기
+![alt text](image_1/image-42.png)
+
+8. 입력 탭: Calendar id는 "Calendar" 선택하기
+![alt text](image_1/image-43.png)
+
+9. 입력 탭: Subject 수정
+* Subject 변수의 [...] 버튼 클릭
+![alt text](image_1/image-44.png)
+* 수식 탭 클릭 후 아래 수식 붙여넣은 후 삽입 버튼 클릭
+```text
+System.User.DisplayName & " on business trip"
+```
+![alt text](image_1/image-45.png)
+
+10. 입력 탭: Start time 수정
+* 9와 같은 방식으로 **Start time** 변수의 [...] 버튼 클릭 후 수식 탭에서 아래 수식 붙여넣기
+```text
+DateTimeValue(
+    Text(DateValue(Topic.trip_start_date), "yyyy-mm-dd") & "T09:00:00"
+)
+```
+![alt text](image_1/image-46.png)
+
+11. 입력 탭: End time 수정 
+* 9,10과 같은 방식으로 **End time** 변수의 [...] 버튼 클릭 후 수식 탭에서 아래 수식 붙여넣기
+```text
+DateTimeValue(
+    Text(DateValue(Topic.trip_end_date), "yyyy-mm-dd") & "T09:00:00"
+)
+```
+![alt text](image_1/image-47.png)
+
+12. 입력 탭: Time zone 수정
+* 드롭다운에서 Seoul 선택
+![alt text](image_1/image-48.png)
+
+#### (4) 확인용 적응형 카드 메시지 노드
+
+13. 노드 추가 버튼을 누른 후 **메시지 보내기** 선택 후 **적응형 카드** 선택 
+![alt text](image_1/image-49.png)
+![alt text](image_1/image-50.png)
+![alt text](image_1/image-51.png)
+
+14. 적응형 카드 속성 탭 내에서 JSON 카드에서 수식 카드로 변경
+![alt text](image_1/image-52.png)
+![alt text](image_1/image-53.png)
+![alt text](image_1/image-54.png)
+
+15. 아래 수식 복사하여 붙여넣어서 수식 카드 완성하기
+
+
+```json
+{
+  '$schema': "https://adaptivecards.io/schemas/adaptive-card.json",
+  type: "AdaptiveCard",
+  version: "1.5",
+  body: [
+    {
+      type: "Container",
+      bleed: true,
+      minHeight: "190px",
+      backgroundImage: {
+        url: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=60",
+        verticalAlignment: "Center"
+      },
+      verticalContentAlignment: "Bottom",
+      items: [
+        {
+          type: "TextBlock",
+          text: "캘린더 이벤트가 생성되었습니다",
+          wrap: true,
+          color: "Light",
+          size: "Large",
+          weight: "Bolder"
+        },
+        {
+          type: "TextBlock",
+          text: "아래 내용을 확인해 주세요.",
+          wrap: true,
+          color: "Light",
+          spacing: "None",
+          isSubtle: true
+        }
+      ]
+    },
+    {
+      type: "Container",
+      spacing: "Medium",
+      items: [
+        {
+          type: "TextBlock",
+          text: Topic.V4CalendarPostItem.subject,
+          wrap: true,
+          size: "Medium",
+          weight: "Bolder"
+        },
+        {
+          type: "FactSet",
+          facts: [
+            {
+              title: "시작",
+              value: 
+                  Text(
+                      DateValue( Topic.V4CalendarPostItem.start ),
+                      "yyyy-mm-dd"
+                  )
+
+            },
+            {
+              title: "종료",
+              value:
+                    Text(
+                        DateValue( Topic.V4CalendarPostItem.end ),
+                        "yyyy-mm-dd"
+                    )
+            },
+
+          ]
+        },
+        {
+          type: "TextBlock",
+          text: "설명",
+          wrap: true,
+          weight: "Bolder",
+          spacing: "Medium"
+        },
+        {
+          type: "TextBlock",
+          text: Topic.V4CalendarPostItem.body,
+          wrap: true,
+          isSubtle: true,
+          maxLines: 4
+        }
+      ]
+    },
+    {
+      type: "ActionSet",
+      spacing: "Medium",
+      actions: [
+        {
+          type: "Action.OpenUrl",
+          title: "Outlook에서 일정 열기",
+          style: "positive",
+          url: Topic.V4CalendarPostItem.webLink
+        }
+      ]
+    },
+    {
+      type: "TextBlock",
+      text: "※ 일정이 바로 안 보이면 Outlook/Teams에서 잠깐 후 새로고침해 보세요.",
+      wrap: true,
+      size: "Small",
+      isSubtle: true,
+      spacing: "Medium"
+    }
+  ]
+}
+```
+![alt text](image_1/image-55.png)
+
+16. 끝입니다! 저장 버튼 누르기
+![alt text](image_1/image-56.png)
+
+
+## 9. 실습 ⑤ : 오케스트레이터 지침 — **동적 연결 마무리**
+
+이제 모든 에이전트/토픽/도구를 만들었으므로, 오케스트레이터 지침에서 `/ {}` 로 표시했던 부분을 **실제 항목에 동적으로 연결**합니다.이렇게 진행하면 오케스트레이터가 지침에서 뜻하는 에이전트와 토픽, 도구를 잘 인식하여 동작할 수 있습니다.
+
+- 지침 편집에서 `/ {출장 규정 전담 에이전트}`, `/ {현지 가이드}`, `/ {출장 일정 등록}` 등 **중괄호를 삭제**하면 드롭다운이 표시됩니다.  
+- 해당 위치에서 각각 **실제 에이전트/토픽/도구**를 선택해 삽입합니다.
+![alt text](image_1/image-57.png)
+- 최종적으로는 아래처럼 되어야 합니다.
+![alt text](image_1/image-58.png)
+![alt text](image_1/image-59.png)
+
+> 최종 상태: 지침 내의 모든 동적 항목이 **파란 칩(토픽/도구/에이전트 태그)** 으로 바뀌어야 합니다.
+
+## 10. 통합 테스트 시나리오
+
+1) **규정 → 현지 가이드 자동 연계**  
+- 사용자: "부산 숙박비 한도 얼마야?"  
+- 기대: 규정 답변(국내 PDF 인용) → 목적지 있으면 **현지 가이드** 자동 호출 제안/연결
+
+2) **해외 규정 + 일정 등록 자동 실행**  
+- 사용자: "프라하 비즈니스석 가능?"  
+- 기대: 해외 규정 답변(M3/장거리 조건) → **출장 일정 등록** 토픽 자동 실행 유도
+
+3) **현지 날씨 질의**  
+- 사용자: "이번 주 런던 날씨 어때?"  
+- 기대: MSN **오늘 예보 가져오기** 사용, 복장/준비물 제안 포함
+

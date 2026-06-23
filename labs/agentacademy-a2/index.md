@@ -1,0 +1,249 @@
+---
+layout: lab
+title: "A2 · 에이전트 모델 이해"
+summary: "에이전트 사용 사례에 최적화된 AI 모델 선택과 모델별 성능 특성 비교."
+module: "AgentAcademy — 커스텀 에이전트 초급"
+module_id: agentacademy
+level: 200
+time: "25분"
+audience: "초중급 Maker"
+accent: "#0078D4"
+tags: ["Models", "Optimization"]
+prev_url: /labs/agentacademy-a1/
+prev_title: "A1 · 채용 에이전트 시작하기"
+next_url: /labs/agentacademy-a3/
+next_title: "A3 · 멀티 에이전트"
+source_url: "https://github.com/baby-crows/Copilot-Studio-Hands-on/blob/main/AgentAcademy/A2%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%20%EB%AA%A8%EB%8D%B8%20%EC%9D%B4%ED%95%B4.md"
+---
+
+
+# 1. 목표
+
+1.  에이전트 사용 사례에 **최적화된 AI 모델 선택** 방법
+2.  **모델별 성능 특성** 비교
+3.  에이전트의 **기본 모델 변경** 방법
+4.  모델 교체 시 **출력 차이점**(품질·구조·깊이) 테스트 및 평가
+
+
+
+# 2. 배경 지식
+
+##  에이전트 모델이란?
+
+*   Copilot 에이전트의 응답을 생성하는 **생성형 AI 엔진**
+*   선택한 모델이 **속도·품질·비용·추론 능력**을 결정
+*   예: 빠른 응답, 심층 분석, 복잡한 추론 등 시나리오별 특화
+
+
+# 3. 모델 종류 및 기준
+
+- Copilot Studio는 **OpenAI 모델**과 **Anthropic 모델**을 지원합니다. 
+- 각 모델에는 모델의 성격을 나타내는 **카테고리 태그**와 **출시 단계 태그**가 부여되어 있습니다. 즉, 아래 2가지 범주로 모델을 구분 지을 수 있습니다. 
+
+
+### **기준 1: 사용 카테고리**
+
+| 태그          | 설명            | 강점           | 지연 | 비용 | 추론 심도 |
+| ----------- | ------------- | ------------ | -- | -- | ----- |
+| **Deep**    | 복잡한 분석·다단계 추론 | 정책 분석, 장문 종합 | 높음 | 높음 | 고도 (다단계, 도구 활용 고도)    |
+| **Auto**    | 자동 라우팅·워크플로   | 헬프데스크, 복합 문의 | 가변 | 가변 | 고도    |
+| **General** | 일반 대화·속도 중심   | 초안 작성, FAQ   | 낮음 | 낮음 | 얕음    |
+
+### **기준 2: 출시 단계**
+
+| 태그               | 설명               |
+| ---------------- | ---------------- |
+| **Experimental** | 실험적, 프로덕션 비권장, **가용성**과 **품질에 제한**이 있을 수 있습니다. (자세한 사항은 [공식문서](https://learn.microsoft.com/ko-kr/ai-builder/experimental-preview-limitations) 참고.)    |
+| **Preview**      | 장차 정식 출시될 모델 미리보기, 안정성 제한, **가용성**과 **품질에 제한**이 있을 수 있습니다. (자세한 사항은 [공식문서](https://learn.microsoft.com/ko-kr/ai-builder/experimental-preview-limitations) 참고.)     |
+| **(태그 없음)**            | **일반 공급(정식 출시)** 상태, 규모 확장 및 프로덕션 사용에 적합, 대부분 품질이나 가용성에 제약이 없습니다. (단, 일부 모델은 지역 가용성 등 제한이 있을 수 있습니다.)                                                                              |
+| **Default**      | 기본 모델, 일반적으로 **성능이 가장 우수한 정식 출시 모델**, 주기적 업그레이드 |
+| **Retired**      | 새로운 모델이 기본 모델로 지정되면, 기존 기본 모델은 **지원 종료** 상태, 최대 30일 유예지만 이후에는 사용 불가 (자세한 정보는 [공식 문서](https://learn.microsoft.com/ko-kr/ai-builder/retired-models-continue) 참고.) |
+
+
+
+## OpenAI 모델 (2025 기준)
+
+| 모델                | 카테고리    | 상태           | 강점        | 사용 사례        |
+| ----------------- | ------- | ------------ | --------- | ------------ |
+| GPT‑4o            | General | Retired      | 빠르고 다재다능  | Q\&A, 요약     |
+| GPT‑4.1           | General | Default      | 높은 정확도·추론 | 정책·보고서 분석    |
+| GPT‑5 Chat        | General | Preview      | 자연스러운 대화  | IT/HR 챗봇     |
+| GPT‑5 Auto        | Auto    | General      | 워크플로 자동화  | 엔드-투-엔드 프로세스 |
+| GPT‑5 Reasoning   | Deep    | Preview      | 심층 추론 (2024년 10월까지 학습)    | 전략·데이터 분석    |
+| GPT‑5.1 Chat      | General | Experimental | 최신 대화 성능  | 범용 Q\&A      |
+| GPT‑5.1 Reasoning | Deep    | Experimental | 최고 수준 추론  | 초고난도 분석      |
+
+> ⚠️ **주의:** 실험적·프리뷰 모델은 **프로덕션 비권장**, 테스트용으로만 사용.
+
+
+## Anthropic 모델 (외부)
+현재 두 가지 Anthropic 모델이 미리보기(Preview)로 제공됩니다.
+
+
+| 모델 버전 | 상태 | 주요 강점 | 이상적인 사용 사례 |
+| --- | --- | --- | --- |
+| **Claude Sonnet 4.5** | Experimental | 코딩 및 에이전트 작업, 도구 사용 및 단계별 추론에 탁월. | 고급 소프트웨어 개발 지원, 다단계 자율 에이전트 구축. |
+| **Claude Opus 4.1** | Experimental | 집중적인 분석과 구조화된 문제 해결에 특화. | 심층 데이터 분석, 리서치 프로젝트, 복잡한 추론 시나리오. |
+
+> **⚠️ 주의:**
+> *   Anthropic 모델은 **Microsoft 클라우드 외부**에서 호스팅되는 **서드파티 모델**이며, 사용 전 **Anthropic 이용 약관 및 데이터 처리 방침**에 동의해야 합니다. 공식 출시 전 미리 제공되는 것으로, **프로덕션에는 권장되지 않습니다.** 
+> *   또한 **용량 제한**으로 응답 지연이나 타임아웃이 발생할 수 있고, 향후 지원이 중단될 가능성도 있습니다. (관리자가 해당 기능을 비활성화할 수 있으며, 이는 뒤에서 설명합니다.) 
+
+# 4. 모델 관련 특징
+
+## 컨텍스트 길이
+
+*   긴 맥락 반영 가능
+    * e.g.: GPT-4.1는 최대 128K 토큰
+*   학습 데이터: 모든 모델은 2024년 중반까지의 데이터로 학습,  (GPT-5 계열은 약간 더 최신 데이터 포함)
+    * 즉 해당 시점 이후의 지식은 없다는 뜻. 모델이 답변을 생성할 때 이러한 **지식 한계**를 염두에 두어야 합니다.
+
+## 모델 주기적 업그레이드 
+
+Microsoft는 **정기적으로 새로운 버전의 모델을 출시하고 기본 모델을 업그레이드**합니다. 예를 들어 **2025년 11월**에는 다음과 같은 새로운 모델들이 제공되었습니다:
+
+*   GPT-5.1 Chat
+*   GPT-5.1 Reasoning
+
+> **💡 참고:** Microsoft가 수행한 **모델 업그레이드 내역**을 주기적으로 확인하려면 [모델 업데이트](https://learn.microsoft.com/ko-kr/ai-builder/ai-model-updates)를 참조하세요. 
+
+## 모델 변경 가능
+
+*   기본값: GPT-4o (또는 최신)
+*   변경 경로: `Settings → Generative AI → Model`
+
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/1c9d48d2-5882-449a-878f-50e1b0b82ea0" />
+
+
+## 지원 종료 모델 유지
+
+*   최대 30일 유예
+*   이유: 호환성, 규제 준수, 안정성 확보
+
+### 지원 종료 모델 사용하는 방법
+
+에이전트 **설정(Settings)** 페이지의 **Generative AI > Model** 섹션을 보면, 모델 업데이트 시행 시 \*\*"지원 종료된 모델 계속 사용(Continue using retired models)"\*\*이라는 토글 옵션이 활성화됩니다.
+
+이 토글을 켜면, 에이전트가 **30일간** 이전 모델 버전을 계속 사용하게 됩니다. 이 기간 동안 토글을 통해 이전 모델과 신규 모델을 오가며 **응답을 비교**하고 점진적으로 전환할 수 있습니다.
+
+30일 후에는 기존 모델이 완전히 서비스 중단되므로, 그 전에 새 모델로 **이동 완료**해야 합니다. 요약하면, 이 기능은 **원활한 전환**을 위한 완충 기간을 제공하는 것입니다.
+
+<img width="1659" height="955" alt="Image" src="https://github.com/user-attachments/assets/c99e912d-5fa0-41a2-9949-62c083a7d8af" />
+
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/3d8e6ebd-e831-4ddc-8090-4a05f99fe70f" />
+
+# 5. 모델 관련 관리
+
+모든 Copilot 환경에서 모든 모델을 기본 제공하는 것은 아닙니다. **테넌트 관리자**는 조직 차원에서 모델 사용을 제어할 수 있습니다. 특히 **실험적 모델**에 대해서는 조직별로 사용을 제한할 수 있습니다.
+
+## 주요 관리자 설정
+
+| 설정           | 영향            | 위치                 |
+| ------------ | ------------- | ------------------ |
+| Anthropic 허용 | 외부 모델 사용 가능   | M365 관리 센터        |
+| 프리뷰 모델 허용       | GPT-5 등 선택 가능 | Power Platform 관리 센터(환경별 설정) |
+| 지역 간 데이터 이동  | 실험적 모델 허용     | Power Platform 관리 센터(환경별 설정) |
+
+### Anthropic 모델 허용
+
+- **전역 관리자** 역할이 있는 관리자가 Microsoft 365 관리자 센터에서 Anthropic 모델 사용 옵션을 켤 수 있습니다. 이 설정이 꺼져 있다면, **OpenAI 모델만** 선택 가능합니다.
+
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/2fdbf672-bb14-4e90-8dd8-da7dca508945" />
+
+### 프리뷰 모델 허용
+
+- **환경** 수준에서, 관리자가 **Copilot Studio 환경에 프리뷰/실험적 AI 모델을 활성화할지** 선택할 수 있습니다. 이 설정이 \*\*OFF(꺼짐)\*\*이면 **정식 출시 모델**(예: GPT-4o 등)만 드롭다운에 나타납니다. GPT-5 등 프리뷰 모델을 쓰려면, 해당 환경에 대해 이 옵션을 \*\*ON(켜짐)\*\*으로 설정해야 합니다.
+
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/3f9e56aa-9a43-45bd-91b8-44a1a4274769" />
+
+### 지역 간 데이터 이동 
+
+- 실험적 모델은 **표준 모델과 동일한 지역 데이터센터에서 작동하지 않을 수** 있습니다. 따라서 이를 활성화하려면 데이터가 **지역 경계를 넘어 이동하는 것을 허용**해야 합니다. Power Platform관리 센터(환경 설정)에 있는 **"지역 간 데이터 이동(Move data across regions)"** 설정을 **관리자**가 켜야 실험적 모델 사용이 가능합니다. 이 설정이 꺼져 있으면, 해당 지역 밖에서 호스팅되는 모델은 차단되어 Copilot의 생성 AI 기능을 사용할 수 없습니다.  
+   - 예를 들어 환경이 *유럽* 지역에 있는데 실험적 모델이 *미국* 데이터센터에만 있다면, 이 옵션을 켜야 해당 데이터 흐름을 허용할 수 있습니다. 꺼져 있다면 Copilot은 이러한 모델을 사용하지 않을 것입니다.
+
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/96377cb2-a424-4e1b-90d4-0c22d3535fff" />
+
+
+> **💡 팁:**
+>
+> *   관리자(Admin)로서 **데이터 규제 준수**가 걱정된다면, **Anthropic 모델 사용을 비활성화**하고, **프리뷰 모델 사용 허용 및 지역 간 데이터 이동** 설정을 모두 꺼두세요.
+> *   개발자(Developer)로서 **규제가 엄격한 산업 환경**에 있다면, 승인받지 않은 프리뷰 모델(OpenAI)이나 외부 모델(Anthropic)은 사용하지 말고 **정식 출시(GA) 모델**만 사용해야 할 수도 있습니다. 
+
+
+
+
+# 6. 응답 서식(Formatting)
+
+## 주요 옵션
+
+| 옵션       | 효과       | 예시                         |
+| -------- | -------- | -------------------------- |
+| **굵게**   | 핵심 강조    | **계정 잔액: $1,250**          |
+| *이탤릭*    | 부드러운 강조  | *추가 정보 제공*                 |
+| 하이퍼링크    | 외부 자료 연결 | <https://microsoft.com>    |
+| Power Fx | 동적 데이터   | `Text(Now(),"yyyy-mm-dd")` |
+
+**모범 사례**
+
+*   스타일 일관성 유지
+*   강조는 핵심만
+*   목록으로 구조화
+*   링크는 명확한 텍스트 사용
+*   Power Fx로 후처리 가능
+
+> **💡 팁:** 응답 서식을 설정한 후에는 **Copilot Studio의 테스트 창**에서 여러 샘플 질문으로 꼭 확인해 보세요. 에이전트의 답변이 의도한 형식으로 나오는지 살펴보고, 만약 **응답에 Markdown 문법 그대로**(예: `**굵게**` 표기)이 보인다면 지시어를 조정해야 할 수 있습니다. 경우에 따라 모델이 형식 사용 여부를 확신하지 못해 *asterisk*를 이스케이프해 그대로 보여줄 때가 있습니다. 이러한 문제가 있다면 **서식 지침을 더 분명히** 써주고 테스트를 반복하면서 원하는 출력이 나올 때까지 조율하세요. 
+
+# 7. 실습: 모델 비교
+
+**목표:** GPT-4.1 vs GPT-5.1 Chat 응답 비교  
+**관찰 포인트:**
+
+1.  깊이(Depth)
+2.  구조(Structure)
+3.  어조(Tone)
+4.  구체성(Specificity)
+
+**준비**
+1. Hiring Agent 이름 붙이기
+2. Description에 아래 내용 넣기
+    > You are the central orchestrator for the hiring process. You coordinate activities, provide summaries, and delegate work to specialized agents.
+
+
+**실습 단계:**
+
+> 1.  Hiring Agent에서 `이력서 RXXXXX 요약` 요청
+> 2.  인터뷰 질문 + 예상 답변 요청
+> 3.  모델 변경 → GPT-5.1 Chat
+> 4.  동일 질문 재실행 → 응답 차이 비교
+
+이제 **기본 모델 GPT-4.1**과 **실험적 모델 GPT-5.1 Chat**의 응답을 비교해 봅시다.
+
+1.  **Hiring Agent**에서 새로운 **테스트 세션**을 시작한 뒤, 아래 질문을 입력하세요. \*\*이력서 번호(Resume Number)\*\*는 **Hiring Hub** 모델 구동 앱에서 현재 활성 상태인 이력서 목록 중 하나를 사용합니다.  
+    `이력서 RXXXXX을 요약해 주세요.`
+
+2.  입력하면 해당 이력서에 대한 요약이 표시됩니다. **헤더별 불릿 포인트** 형식으로 출력된 것을 볼 수 있고, **Dataverse의 "Active Resumes" 레코드**에 대한 참조도 포함되어 있습니다 (예: 이력서 데이터 원본 식별자).
+
+3.  이제 두 번째 질문을 해보겠습니다. **직무별 평가 기준**을 기반으로, **Power Platform 개발자 직무(J1004번)** **인터뷰 질문**을 몇 가지 추천해 달라고 요청하고, 각 질문에 대한 **모범 답안**도 달라고 해보겠습니다. 아래 질문을 입력하세요.  
+    `Power Platform 개발자 역할(J1004)의 평가 기준에 기반하여 인터뷰에서 물어볼 질문들을 제안해 줄 수 있나요? 각 질문에 대해 예상 답변도 알려주세요.`
+
+4.  반환된 답변을 보면 **번호 매겨진 목록**으로 여러 인터뷰 질문이 나열됩니다. 각 질문 아래에 `모범 답변(Model Answer)`이 붙어 있습니다. 답변이 **후보자의 시점**(1인칭)으로 작성되어 있는 점에 주목하세요. 모델이 각 질문에 대해 **후보자가 답할 법한 대답**을 제시하고 있습니다.
+
+5.  이제 에이전트의 모델을 바꿔보겠습니다. **Overview** 탭에서 \*\*드롭다운 아이콘(chevron)\*\*을 클릭한 뒤, **OpenAI 모델** 목록에서 **GPT-5.1 Chat**을 선택합니다.
+
+6.  잠시 후 에이전트 모델이 업데이트되었다는 **확인 메시지**가 표시됩니다. 이제 새로운 테스트 세션을 시작하여 이 모델의 응답을 시험해 봅시다. 동일하게 **1-3 단계**를 반복합니다. 
+
+
+# 참고
+
+
+📖 [Multi-agent orchestration and more: Copilot Studio announcements](https://www.microsoft.com/microsoft-copilot/blog/copilot-studio/multi-agent-orchestration-maker-controls-and-more-microsoft-copilot-studio-announcements-at-microsoft-build-2025/#copilot-studio-enhancements)
+
+📖 [Choose an external model as the primary AI model](https://learn.microsoft.com/microsoft-copilot-studio/authoring-select-external-response-model?WT.mc_id=power-188561-ebenitez)
+
+📖 [Connect to Anthropic's AI models](https://learn.microsoft.com/copilot/microsoft-365/connect-to-ai-models?WT.mc_id=power-188561-ebenitez)
+
+📖 [Allow external large language models (LLMs) for generative responses](https://learn.microsoft.com/power-platform/admin/allow-llm-generative-responses?WT.mc_id=power-188561-ebenitez)
+
+📖 [Move data across regions for Copilots and generative AI features](https://learn.microsoft.com/power-platform/admin/geographical-availability-copilot?tabs=new#copilots-and-generative-ai-features-that-depend-on-data-movement-across-regions?WT.mc_id=power-188561-ebenitez)
+
+📖 [Provide feedback on Anthropic models](https://community.powerplatform.com/forums/thread/?groupid=db8f53c2-767d-47d6-a1ae-fe4c828a6553)

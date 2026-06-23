@@ -1,0 +1,55 @@
+---
+layout: default
+---
+<article class="lab">
+  <div class="lab-banner" style="--accent: {{ page.accent | default: '#0078D4' }};">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="{{ '/' | relative_url }}">홈</a>
+        {% if page.module %}<span>/</span><a href="{{ '/' | relative_url }}#{{ page.module_id }}">{{ page.module }}</a>{% endif %}
+        <span>/</span><span aria-current="page">{{ page.title }}</span>
+      </nav>
+      <h1 class="lab-title">{{ page.title }}</h1>
+      {% if page.summary %}<p class="lab-summary">{{ page.summary }}</p>{% endif %}
+      <div class="lab-badges">
+        {% if page.level %}<span class="badge level level-{{ page.level }}">Level {{ page.level }}</span>{% endif %}
+        {% if page.time %}<span class="badge">⏱ {{ page.time }}</span>{% endif %}
+        {% if page.audience %}<span class="badge">👤 {{ page.audience }}</span>{% endif %}
+        {% if page.author %}<span class="badge">✍ {{ page.author }}</span>{% endif %}
+        {% if page.tags %}{% for tag in page.tags %}<span class="badge badge-tag">{{ tag }}</span>{% endfor %}{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container lab-layout">
+    <div class="lab-content markdown-body">
+      {{ content }}
+
+      <nav class="lab-pager">
+        {% if page.prev_url %}
+        <a class="pager prev" href="{{ page.prev_url | relative_url }}">
+          <span class="pager-dir">← 이전</span>
+          <span class="pager-title">{{ page.prev_title }}</span>
+        </a>
+        {% else %}<span></span>{% endif %}
+        {% if page.next_url %}
+        <a class="pager next" href="{{ page.next_url | relative_url }}">
+          <span class="pager-dir">다음 →</span>
+          <span class="pager-title">{{ page.next_title }}</span>
+        </a>
+        {% endif %}
+      </nav>
+
+      <div class="lab-source">
+        <a href="{{ page.source_url | default: 'https://github.com/baby-crows/Copilot-Studio-Hands-on' }}" target="_blank" rel="noopener">📄 원본 문서 보기 ↗</a>
+      </div>
+    </div>
+
+    <aside class="lab-toc" aria-label="목차">
+      <div class="toc-sticky">
+        <p class="toc-title">목차</p>
+        <nav id="toc"></nav>
+      </div>
+    </aside>
+  </div>
+</article>

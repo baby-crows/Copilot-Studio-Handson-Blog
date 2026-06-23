@@ -1,0 +1,73 @@
+---
+layout: default
+---
+<section class="hero">
+  <div class="container hero-inner">
+    <p class="hero-eyebrow">Microsoft Copilot Studio</p>
+    <h1 class="hero-title">{{ page.hero_title | default: "Copilot Studio 핸즈온 실습 블로그" }}</h1>
+    <p class="hero-lead">{{ page.hero_lead | default: site.description }}</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#agentacademy">실습 시작하기</a>
+      <a class="btn btn-ghost" href="https://github.com/baby-crows/Copilot-Studio-Hands-on" target="_blank" rel="noopener">원본 레포 보기 ↗</a>
+    </div>
+    <ul class="hero-stats">
+      <li><strong>5</strong><span>모듈</span></li>
+      <li><strong>10</strong><span>실습</span></li>
+      <li><strong>100+</strong><span>스크린샷</span></li>
+    </ul>
+  </div>
+</section>
+
+<div class="container">
+  {{ content }}
+
+  {% for module in site.data.modules %}
+  <section class="module" id="{{ module.id }}">
+    <div class="module-head" style="--accent: {{ module.accent }};">
+      <span class="module-icon">{{ module.icon }}</span>
+      <div class="module-meta">
+        <div class="module-titlerow">
+          <h2>{{ module.title }}</h2>
+          {% if module.badge %}<span class="module-badge">{{ module.badge }}</span>{% endif %}
+        </div>
+        <p>{{ module.description }}</p>
+      </div>
+    </div>
+    <div class="card-grid">
+      {% for lab in module.labs %}
+      <a class="card" href="{{ lab.url | relative_url }}" style="--accent: {{ module.accent }};">
+        <div class="card-top">
+          <span class="level level-{{ lab.level }}">Level {{ lab.level }}</span>
+          <span class="card-time">⏱ {{ lab.time }}</span>
+        </div>
+        <h3 class="card-title">{{ lab.title }}</h3>
+        <p class="card-summary">{{ lab.summary }}</p>
+        {% if lab.tags %}
+        <div class="card-tags">
+          {% for tag in lab.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+        </div>
+        {% endif %}
+        <span class="card-cta">실습 열기 →</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+
+  <section class="module module-coming" id="new-copilot-studio">
+    <div class="module-head" style="--accent:#5B5FC7;">
+      <span class="module-icon">✨</span>
+      <div class="module-meta">
+        <div class="module-titlerow">
+          <h2>New Copilot Studio</h2>
+          <span class="module-badge">예정</span>
+        </div>
+        <p>새로운 Copilot Studio 버전에 대한 섹션이 곧 추가됩니다.</p>
+      </div>
+    </div>
+    <div class="coming-note">
+      이 영역은 작성자가 직접 콘텐츠를 추가할 자리입니다. <code>_data/modules.yml</code>에 모듈을 추가하고
+      <code>labs/</code> 폴더에 페이지를 만들면 자동으로 카드가 생성됩니다.
+    </div>
+  </section>
+</div>
