@@ -145,10 +145,12 @@ img { max-width: 100%; height: auto; }
   border-radius: var(--radius-lg); margin: 28px 0 8px; border: 1px solid var(--line); }
 .edition-classic { background: linear-gradient(180deg, #EAF3FB, #fff); border-color: #CFE4F7; }
 .edition-new { background: linear-gradient(180deg, #F0EEFB, #fff); border-color: #DAD4F4; }
+.edition-workshop { background: linear-gradient(180deg, #E9F7F0, #fff); border-color: #C7E9D9; }
 .edition-tag { flex: none; align-self: center; font-size: 12px; font-weight: 800; letter-spacing: .04em;
   padding: 7px 14px; border-radius: 999px; color: #fff; white-space: nowrap; }
 .edition-classic .edition-tag { background: var(--ms-blue); }
 .edition-new .edition-tag { background: #5B5FC7; }
+.edition-workshop .edition-tag { background: #107C10; }
 .edition-title { margin: 0; font-size: 22px; letter-spacing: -.02em; color: var(--ink); display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .edition-sub { font-size: 13.5px; font-weight: 600; color: var(--muted); letter-spacing: 0; }
 .edition-desc { margin: 8px 0 0; color: var(--ink-2); font-size: 14.5px; max-width: 820px; }
@@ -188,6 +190,7 @@ img { max-width: 100%; height: auto; }
 .badge-edition { font-weight: 800; color: #fff; border: 0; }
 .badge-edition-classic { background: var(--ms-blue); }
 .badge-edition-new { background: #5B5FC7; }
+.badge-edition-workshop { background: #107C10; }
 
 /* ---------- Lab page ---------- */
 .lab-banner { background:

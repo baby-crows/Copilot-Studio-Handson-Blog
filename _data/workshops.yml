@@ -1,0 +1,13 @@
+# 워크샵 목록 (홈의 "워크샵" 섹션 + /workshops/<id>/ 페이지)
+# Classic / New 에디션과 별개로 하루 단위 종합 실습 과정을 묶습니다.
+
+- id: agent-in-a-day
+  title: Agent in a Day — 구·신 Copilot Studio 핸즈온
+  icon: "🗓️"
+  badge: Classic + Preview
+  accent: "#0F6CBD"
+  level: 300
+  time: "Full-day"
+  description: >-
+    M365 Copilot Agent Builder부터 구(Classic)·신(New, Public Preview) Copilot Studio,
+    Advanced 도구, Workflow까지 하루에 훑는 풀데이 워크샵. Classic과 New 내용을 모두 다룹니다.

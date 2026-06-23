@@ -54,6 +54,29 @@ layout: default
     </div>
   </section>
 
+  <section class="edition" id="workshops">
+    <div class="edition-head edition-workshop">
+      <span class="edition-tag">Workshop</span>
+      <div class="edition-meta">
+        <h2 class="edition-title">워크샵 <span class="edition-sub">하루 완성 종합 과정</span></h2>
+        <p class="edition-desc">여러 모듈과 실습을 하나의 흐름으로 묶은 하루 단위 워크샵입니다. Classic과 New(Public Preview) 내용을 함께 다룹니다.</p>
+      </div>
+    </div>
+    <div class="card-grid">
+      {% for ws in site.data.workshops %}
+      <a class="card module-card" href="{{ '/workshops/' | append: ws.id | append: '/' | relative_url }}" style="--accent: {{ ws.accent }};">
+        <div class="card-top">
+          <span class="module-card-icon">{{ ws.icon }}</span>
+          {% if ws.badge %}<span class="module-badge">{{ ws.badge }}</span>{% endif %}
+        </div>
+        <h3 class="card-title">{{ ws.title }}</h3>
+        <p class="card-summary">{{ ws.description }}</p>
+        <span class="card-cta">워크샵 열기 →</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
   <section class="author-section" id="author">
     <div class="author-card">
       <div class="author-avatar" aria-hidden="true">이</div>

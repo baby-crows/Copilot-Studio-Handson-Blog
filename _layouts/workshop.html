@@ -1,0 +1,36 @@
+---
+layout: default
+---
+<article class="lab">
+  <div class="lab-banner" style="--accent: {{ page.accent | default: '#0F6CBD' }};">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="{{ '/' | relative_url }}">홈</a>
+        <span>/</span><a href="{{ '/' | relative_url }}#workshops">워크샵</a>
+        <span>/</span><span aria-current="page">{{ page.title }}</span>
+      </nav>
+      <h1 class="lab-title">{{ page.title }}</h1>
+      {% if page.summary %}<p class="lab-summary">{{ page.summary }}</p>{% endif %}
+      <div class="lab-badges">
+        <span class="badge badge-edition badge-edition-workshop">Workshop</span>
+        {% if page.level %}<span class="badge level level-{{ page.level }}">Level {{ page.level }}</span>{% endif %}
+        {% if page.time %}<span class="badge">⏱ {{ page.time }}</span>{% endif %}
+        {% if page.editions %}{% for e in page.editions %}<span class="badge">{{ e }}</span>{% endfor %}{% endif %}
+        {% if page.author %}<span class="badge">✍ {{ page.author }}</span>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container lab-layout">
+    <div class="lab-content markdown-body">
+      {{ content }}
+    </div>
+
+    <aside class="lab-toc" aria-label="목차">
+      <div class="toc-sticky">
+        <p class="toc-title">목차</p>
+        <nav id="toc"></nav>
+      </div>
+    </aside>
+  </div>
+</article>
