@@ -11,6 +11,16 @@ editions: ["Classic", "Public Preview"]
 > 이 워크샵은 Copilot Studio의 **구(Classic) 버전과 신(New, Public Preview) 버전**을
 > 한 흐름으로 다룹니다. 아래 목차는 초안이며, 각 섹션은 계속 보완될 예정입니다.
 
+<div class="wsp-credits">
+<div class="wsp-credits-h">📌 자료 출처 &amp; 크레딧 — 시작 전 꼭 확인하세요</div>
+<p class="wsp-credits-p">이 워크샵은 아래 출처의 자료를 <strong>번역·재구성·인용</strong>해 구성했습니다. 각 섹션·카드에도 개별 출처를 명시했으며, 본 자료는 <strong>프리뷰(Public Preview) 기준</strong>이라 기능·화면·일정이 변경될 수 있습니다.</p>
+<ul class="wsp-credits-l">
+<li><span class="wsp-credits-t" style="--c:#0078D4">글로벌 원문</span><strong>microsoft/mcs-labs</strong> (MIT © Microsoft) — 모듈 1~5 · 랩 1~3을 한국어로 번역·재구성했습니다. 원문: <a href="https://github.com/microsoft/mcs-labs" target="_blank" rel="noopener">github.com/microsoft/mcs-labs ↗</a></li>
+<li><span class="wsp-credits-t" style="--c:#C43E1C">Solution Engineer 최치원님</span><strong>Agent_Blog</strong> (chichoi1991.github.io) — Agent Builder 핸즈온, 커스텀 에이전트 기초, New Copilot Studio 구조·핸즈온 등 다수를 인용했습니다. <strong>본 워크샵 제작물이 아니며</strong> 원문에 그대로 연결합니다. 원문: <a href="https://chichoi1991.github.io/Agent_Blog/" target="_blank" rel="noopener">chichoi1991.github.io/Agent_Blog ↗</a></li>
+<li><span class="wsp-credits-t" style="--c:#107C10">직접 제작 오리지널</span>Daily Brief 워크플로우(KR/EN) 등 일부 실습은 <strong>이영서(Solution Engineer)</strong> 가 직접 설계·제작했습니다.</li>
+</ul>
+</div>
+
 ## 1. M365 Copilot Agent Builder vs Copilot Studio 비교
 
 "무엇을 만드느냐"보다 **누가, 어느 수준의 코딩으로, 어떤 목적**으로 쓰느냐가 선택의 핵심입니다. 두 도구를 한눈에 비교합니다.
@@ -59,6 +69,14 @@ editions: ["Classic", "Public Preview"]
 .markdown-body thead th{background:rgba(177,31,75,.06);color:#9A1A41;font-weight:700;border-bottom:2px solid rgba(177,31,75,.18)}
 .markdown-body th,.markdown-body td{padding:11px 14px}
 @media (max-width:680px){.wsp-hero{grid-template-columns:auto 1fr;gap:12px}.wsp-hero .hgo{display:none}}
+.lab-content.markdown-body a{text-decoration:none}
+.lab-content.markdown-body a:hover{text-decoration:underline;text-underline-offset:2px}
+.wsp-credits{margin:16px 0 8px;background:linear-gradient(135deg,rgba(15,108,189,.06),rgba(15,108,189,.012));border:1px solid var(--line,#EDEBE9);border-left:4px solid #0F6CBD;border-radius:14px;padding:16px 20px}
+.wsp-credits-h{font-size:14px;font-weight:700;color:#0F4C81;margin:0 0 8px}
+.wsp-credits-p{font-size:13px;color:var(--ink-2,#3B3A39);margin:0 0 12px;line-height:1.6}
+.wsp-credits-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.wsp-credits-l li{font-size:12.8px;color:var(--ink-2,#3B3A39);line-height:1.55}
+.wsp-credits-t{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;color:#fff;background:var(--c,#0078D4);border-radius:999px;padding:2px 9px;margin-right:7px;vertical-align:middle}
 </style>
 
 <div class="wsp-group" style="--accent:#B11F4B;">
