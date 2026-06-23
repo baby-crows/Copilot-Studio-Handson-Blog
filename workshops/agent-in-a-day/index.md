@@ -13,13 +13,23 @@ editions: ["Classic", "Public Preview"]
 
 ## 1. M365 Copilot Agent Builder vs Copilot Studio 비교
 
-기능·목적 관점에서 두 도구를 간단한 비교표로 정리합니다. (제품 PPT 장표의 비교표 형태)
+"무엇을 만드느냐"보다 **누가, 어느 수준의 코딩으로, 어떤 목적**으로 쓰느냐가 선택의 핵심입니다. 두 도구를 한눈에 비교합니다.
 
-- **Agent Builder 예시** — 간단한 hands-on 링크만 가볍게 소개 ("원하면 직접 보세요" 수준)
-  - 참고: [에이전트 생성 및 지침 작성 | Microsoft Copilot Studio](/labs/agentacademy-a1/)
-- **Copilot Studio 간단 소개** — 구(Classic) → 신(New)으로 바뀐 배경 소개
+| 구분 | M365 Copilot Agent Builder | Copilot Studio |
+|------|----------------------------|----------------|
+| **한 줄 정의** | M365 Copilot 안에서 만드는 **간단한 선언형 에이전트** | 다양한 채널에 배포하는 **본격 에이전트 빌드 플랫폼** |
+| **주 목적** | 온보딩·문서 Q&A 등 RAG 기반 응답 | 업무 자동화·고급 액션·오케스트레이션 |
+| **코딩 레벨** | 노코드 | 로우코드 (드래그앤드롭 + 필요 시 코드/식) |
+| **주 사용자** | 코드 경험 없는 업무 사용자 | 정보 담당자, 업무 자동화 담당, 메이커 |
+| **확장 방법** | 지식 소스 연결, 시작 프롬프트 | 도구/액션, 커넥터, 플로우, MCP, 연결된 에이전트 |
+| **데이터/실행 범위** | M365 Copilot 그래프/연결 지식 | Power Platform·외부 API·다양한 데이터 소스 |
+| **배포 대상** | M365 Copilot · Teams 내 | Teams, 웹, 음성 등 다채널 |
+| **라이선스(개략)** | M365 Copilot | Copilot Studio (웹 기반) |
+| **대표 활용** | 사내 문서 도우미, FAQ 봇 | 승인 워크플로, 백오피스 자동화, 멀티에이전트 |
 
-> 📝 *작성 예정: 비교표(기능/목적/대상 사용자), Agent Builder 스크린샷.*
+> 📖 **자세히 보기** — Agent Builder 선언형 에이전트 개념·예시·핸즈온과 Copilot Studio 구(Classic)·신(New) 경험 비교(스크린샷 포함)는 별도 페이지로 정리했습니다.
+>
+> ▶ **[Agent Builder vs Copilot Studio 상세 비교 (한국어)]({{ '/labs/agentbuilder-vs-studio-kr/' | relative_url }})**
 
 ## 2. 구(Classic) Copilot Studio — 기본 개념 & 핸즈온
 
@@ -129,9 +139,3 @@ Classic 자율 에이전트 트리거 모델을 넘어, 일정·이벤트에 따
 **구성**: 로컬 YAML 파일(`agent.mcs.yml`, `topics/`, `actions/`, `knowledge/`, `templates/`) + 4개 에이전트 + 30+ 스킬 + 번들 Node.js 스크립트 + 평가 프레임워크. **설치**: Node.js 18+, VS Code Copilot Studio 확장(push/pull/clone용), Power Platform 환경 필요. 마켓플레이스 또는 `microsoft/skills-for-copilot-studio` 저장소에서 설치.
 
 > 📝 *추가 사례(작성 예정):* Plan & handoff 하는 skill zip 기반 에이전트, MS Learn 플러그인을 활용하는 에이전트, NEW Copilot Studio Agents — Working with Skills(YouTube) 등.
-
-## 6. 언제 Cowork, 언제 New Copilot Studio? (Positioning)
-
-New Copilot Studio와 다른 옵션(예: Cowork)의 포지셔닝과 선택 기준을 정리합니다.
-
-> 📝 *작성 예정: 사용 시나리오별 의사결정 가이드.*
