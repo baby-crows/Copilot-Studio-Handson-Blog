@@ -71,7 +71,7 @@ editions: ["Classic", "Public Preview"]
 | 13:15 | **[랩 2 — 오케스트레이션](https://microsoft.github.io/mcs-labs/labs/mcs-orchestration/?event=advanced-agent-in-a-day)** | 300 | 60분 |
 | 14:15 | **[모듈 4 — 워크플로우(Workflows)](#45-모듈-4--워크플로우workflows)** | 300 | 30분 |
 | 14:45 | 커피 브레이크 / Q&A | — | 15분 |
-| 15:00 | **[랩 3 — 워크플로우(Workflows)](https://microsoft.github.io/mcs-labs/labs/mcs-workflows/?event=advanced-agent-in-a-day)** | 300 | 60분 |
+| 15:00 | **[랩 3 — 워크플로우(Workflows)]({{ '/labs/mcs-workflows-kr/' | relative_url }})** | 300 | 60분 |
 | 16:00 | **[모듈 5 — 개발자 도구용 플러그인](#46-모듈-5--개발자-도구용-copilot-studio-플러그인)** | 300 | 30분 |
 
 ---
@@ -180,17 +180,27 @@ editions: ["Classic", "Public Preview"]
 ### 4.5 모듈 4 — 워크플로우(Workflows)
 
 > **레벨** 300 · **소요** 30분 · **출처** [Workflows](https://microsoft.github.io/mcs-labs/modules/workflows/) · MIT © Microsoft
-> **연계 랩** → [랩 3: Workflows](https://microsoft.github.io/mcs-labs/labs/mcs-workflows/?event=advanced-agent-in-a-day)
+> **연계 랩** → [Workflows 한국어 클론 랩]({{ '/labs/mcs-workflows-kr/' | relative_url }}) · [원문 랩(mcs-labs)](https://microsoft.github.io/mcs-labs/labs/mcs-workflows/?event=advanced-agent-in-a-day)
 
 인라인 에이전트 연결과 **예약·이벤트 기반 트리거**로 에이전트가 스스로 동작하는 차세대 자율 에이전트 기능을 다룹니다. Classic 자율 에이전트 트리거 모델을 넘어, 사람이 묻지 않아도 일정·이벤트에 따라 에이전트가 능동적으로 작업을 수행합니다.
 
-이 모듈의 실습 흐름은 본 블로그의 **Daily Brief Workflow** 랩과 직접 연결됩니다.
+#### 📦 한국어로 클론한 실습 페이지 (원문 랩 → 한국어 전체 번역)
 
-- [Daily Brief Workflow (한국어)](/labs/daily-brief-kr/)
-- [Daily Brief Workflow (English)](/labs/daily-brief-en/)
-- 원문 실습 → [랩 3: Workflows (mcs-labs)](https://microsoft.github.io/mcs-labs/labs/mcs-workflows/?event=advanced-agent-in-a-day)
+원문 **[랩 3: Workflows (mcs-labs)](https://microsoft.github.io/mcs-labs/labs/mcs-workflows/?event=advanced-agent-in-a-day)** 의
+5개 Use Case 전체(작업 시간 블로킹, Order Management 설정, M365 Copilot 휴먼 인 더 루프, 재고 관리 인라인 에이전트, Price Quote 에이전트 호출)를
+**한국어로 싹 다 클론 코딩한 별도 페이지**를 마련했습니다. (MIT © Microsoft, 출처 명시)
 
-> 📝 원문 모듈 페이지에는 별도 슬라이드 덱이 연결되어 있지 않습니다. 위 Daily Brief 랩으로 이벤트 기반 워크플로우를 직접 실습하세요.
+- ▶ **[Workflows — 이벤트 기반 자율 에이전트 (한국어 클론)]({{ '/labs/mcs-workflows-kr/' | relative_url }})**
+
+#### ✍️ 제가 직접 만든 Daily Brief 워크플로우 실습
+
+아래 **Daily Brief Workflow** 핸즈온은 위 모듈 개념(트리거 + 인라인/멀티 에이전트 + 구조화 출력)을 실제로 적용해
+**제가 직접 설계·제작한 오리지널 실습**입니다. 매일 특정 회사 뉴스 브리프를 자동 생성해 메일로 발송하는 워크플로우를 구축합니다.
+
+- [Daily Brief Workflow (한국어)]({{ '/labs/daily-brief-kr/' | relative_url }}) — *이영서 제작*
+- [Daily Brief Workflow (English)]({{ '/labs/daily-brief-en/' | relative_url }}) — *이영서 제작*
+
+> 📝 원문 모듈 페이지에는 별도 슬라이드 덱이 연결되어 있지 않습니다. 위 한국어 클론 랩 또는 직접 제작한 Daily Brief 랩으로 이벤트 기반 워크플로우를 실습하세요.
 
 ---
 
