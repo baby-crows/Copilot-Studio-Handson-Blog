@@ -1,0 +1,301 @@
+{
+  "privacy": "Account names, addresses, tenant URLs and opaque IDs cropped or solid-masked. UI values otherwise unchanged.",
+  "instructionalCaptures": [
+    {
+      "file": "32-A-manual-researchTopic-text.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        795,
+        606
+      ]
+    },
+    {
+      "file": "33-A-Prep-current-config.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        402,
+        716
+      ]
+    },
+    {
+      "file": "34-A-Researcher-current-config.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        402,
+        906
+      ]
+    },
+    {
+      "file": "35-A-Critic-current-config.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        402,
+        1016
+      ]
+    },
+    {
+      "file": "36-A-Analyst-current-config.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        402,
+        941
+      ]
+    },
+    {
+      "file": "37-A-Composer-current-config.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        402,
+        1016
+      ]
+    },
+    {
+      "file": "63-simple-trigger-no-filters.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        400,
+        986
+      ]
+    },
+    {
+      "file": "64-simple-classify-full-body-empty-descriptions.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        400,
+        986
+      ]
+    },
+    {
+      "file": "67-simple-A-Daily-Brief-Archive-ID.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        400,
+        956
+      ]
+    },
+    {
+      "file": "70-ACTUAL-simple-Daily-Brief-received.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        955,
+        962
+      ]
+    },
+    {
+      "file": "71-ACTUAL-simple-mail-Archive-ID19.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        955,
+        827
+      ]
+    },
+    {
+      "file": "72-ACTUAL-simple-B-native-run-succeeded.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        1185,
+        876
+      ]
+    },
+    {
+      "file": "74-ACTUAL-item19-simple-classified.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        1145,
+        450
+      ]
+    },
+    {
+      "file": "75-A-Archive-DailyBrief-current.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        1065,
+        1015
+      ]
+    },
+    {
+      "file": "77-B-Update-prefilled-ID-Title.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        1065,
+        1015
+      ]
+    },
+    {
+      "file": "78-B-Update-prefilled-triage-fields.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        1065,
+        1015
+      ]
+    },
+    {
+      "file": "79-B-Update-prefilled-message-id.png",
+      "source": "actual prior capture, cropped and opaque-redacted",
+      "size": [
+        1065,
+        1015
+      ]
+    }
+  ],
+  "overviewCaptureDate": "2026-09-30",
+  "overviewSource": "Fresh authenticated, read-only A and B canvas screenshots; private connection data excluded by cropping.",
+  "architecture": "Mermaid CLI rendered locally from architecture.mmd; architecture.drawio is a supplementary editable equivalent.",
+  "video": {
+    "file": "walkthrough.mp4",
+    "durationSeconds": 146,
+    "format": "H.264 / yuv420p / 1920x1080 / 25fps",
+    "audio": "Silent; Korean on-screen explanations and captions.vtt",
+    "source": "Edited excerpts of real read-only A/B browser recording plus sanitized actual prior mail, B run, and item result screenshots. Not a newly executed continuous end-to-end run.",
+    "noActionsPerformed": [
+      "Run",
+      "Publish",
+      "Save",
+      "send mail",
+      "edit cloud data"
+    ]
+  },
+  "validation": {
+    "ffprobe": true,
+    "browserPlayback": true,
+    "browserSeekChecks": 14,
+    "visualReview": "All published stills and one key frame per video scene reviewed; connection identities, tenant URLs and opaque message/run/workflow IDs cropped or solid-masked."
+  },
+  "files": [
+    {
+      "name": "32-A-manual-researchTopic-text.png",
+      "bytes": 25946,
+      "sha256": "a966649f7999b77081436249daf03513876e349d47234e31cc0d5e1bef9b6998"
+    },
+    {
+      "name": "33-A-Prep-current-config.png",
+      "bytes": 54808,
+      "sha256": "4cf6edf41a6d85f5b62e4f018a11f61aec4c481e4bfdf384eba1bb9f0a52b30f"
+    },
+    {
+      "name": "34-A-Researcher-current-config.png",
+      "bytes": 77716,
+      "sha256": "495027a5698dec062e447b666091c12c248dd73090ea3bbc34baa8b2d2e5aa88"
+    },
+    {
+      "name": "35-A-Critic-current-config.png",
+      "bytes": 100910,
+      "sha256": "87d738cda64c0f9ea13de6c54b1368ae5302c3466dd4b9299478a6429699c8b6"
+    },
+    {
+      "name": "36-A-Analyst-current-config.png",
+      "bytes": 79162,
+      "sha256": "5fa6e0edda1e464266798212a44bddedfb718236bb00d3a7ba8ccd374cb2ad10"
+    },
+    {
+      "name": "37-A-Composer-current-config.png",
+      "bytes": 98205,
+      "sha256": "7210213bdeea3cbc848a4f6c80b9fa017681ec6317bfec46fd05c1be7fa774a0"
+    },
+    {
+      "name": "63-simple-trigger-no-filters.png",
+      "bytes": 57919,
+      "sha256": "aaef3540abb10c697a794db54939b8050def31a2ac473fc7c6719bd62ae5871d"
+    },
+    {
+      "name": "64-simple-classify-full-body-empty-descriptions.png",
+      "bytes": 61639,
+      "sha256": "46b2c0e3de927aa270f81002d3545625deba9d980242c7cb5ccb74f537a6f358"
+    },
+    {
+      "name": "67-simple-A-Daily-Brief-Archive-ID.png",
+      "bytes": 42986,
+      "sha256": "ac91117304127a5972219260de6c354c600433c1371f9d9afa2376854a67bf30"
+    },
+    {
+      "name": "70-ACTUAL-simple-Daily-Brief-received.png",
+      "bytes": 73484,
+      "sha256": "08d13d153ef8c3cf6545a6913639cbfea0861bcdd0feb4dd9ac3d51bff8b22fb"
+    },
+    {
+      "name": "71-ACTUAL-simple-mail-Archive-ID19.png",
+      "bytes": 68562,
+      "sha256": "26efe75e6aa5c0057e95d2d64b555dcbb642c795a1b8a00595c1e921fecdcdae"
+    },
+    {
+      "name": "72-ACTUAL-simple-B-native-run-succeeded.png",
+      "bytes": 66400,
+      "sha256": "e39e7871af8d1ce43438b041758d121b12da420d03d7dcec6f42a719e52995ed"
+    },
+    {
+      "name": "74-ACTUAL-item19-simple-classified.png",
+      "bytes": 18065,
+      "sha256": "e7d08d660444c3411771f64a7614a1b764874990776eac923d5cf38cc445371c"
+    },
+    {
+      "name": "75-A-Archive-DailyBrief-current.png",
+      "bytes": 110388,
+      "sha256": "589f26fcecf664fbd04b99fa3e3da07086b216eb04611a9fffbde41b477a8463"
+    },
+    {
+      "name": "77-B-Update-prefilled-ID-Title.png",
+      "bytes": 97230,
+      "sha256": "bc801673b985613b0906c2a4acd7fead7df52d5a6e5d26678fdf40356b3dc1ea"
+    },
+    {
+      "name": "78-B-Update-prefilled-triage-fields.png",
+      "bytes": 108955,
+      "sha256": "44814202f99d2dd9f8964784f79686076fe28b940776fa2978b78612ff9f1e0e"
+    },
+    {
+      "name": "79-B-Update-prefilled-message-id.png",
+      "bytes": 103590,
+      "sha256": "ea9975440f2961d83b97c3b5d0171866fed1e98843c192796eda2154439b6cdf"
+    },
+    {
+      "name": "architecture.drawio",
+      "bytes": 12300,
+      "sha256": "b2c7bdc1208c2d09c08df85bf21d1f15ab7a8c15e18269ab3499e163ee5b57cd"
+    },
+    {
+      "name": "architecture.mmd",
+      "bytes": 1609,
+      "sha256": "272e92d6d045ee525dc74a9859841fef390126669ff5df6dfffb16d90bff805c"
+    },
+    {
+      "name": "architecture.png",
+      "bytes": 77244,
+      "sha256": "53baf29732d2676b00f81badf53b64d79155770e8b989ec71200df527ea69f7f"
+    },
+    {
+      "name": "architecture.svg",
+      "bytes": 31760,
+      "sha256": "2612d0a25553dace7df993226aba7604d00689ae187489e57ff2e791c45b20b1"
+    },
+    {
+      "name": "captions.vtt",
+      "bytes": 3894,
+      "sha256": "8050363af23648c2e69f4876c8757c5ef1b74bb2e77cc2999f73465be7546fac"
+    },
+    {
+      "name": "walkthrough-poster.png",
+      "bytes": 357256,
+      "sha256": "496cea6681727dc5cbccd0afdfecbdbb8559dd53e8c88da110d25aa745172ba1"
+    },
+    {
+      "name": "walkthrough.mp4",
+      "bytes": 1509848,
+      "sha256": "735075b3a9cb1bf2a3c6aa79a1bc29af6f6c133bd48626e406e75f3d64434623"
+    },
+    {
+      "name": "workflow-a.png",
+      "bytes": 39225,
+      "sha256": "9b5930cda40dbe02fca3f6e64b96ccb5b7b162f84daf68d357673287882d4471"
+    },
+    {
+      "name": "workflow-b.png",
+      "bytes": 51304,
+      "sha256": "ea1d557af34490e4e926d1b05befce397e865a78a44a53b49d8223abfce5d154"
+    },
+    {
+      "name": "workflow-combined.png",
+      "bytes": 152940,
+      "sha256": "d23b955e37beff034874dcecf7a1978a8e1bcc896f2a431e5eb6d7cb001ab0c1"
+    }
+  ]
+}

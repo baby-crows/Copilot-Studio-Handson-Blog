@@ -50,6 +50,13 @@ layout: default
       <div class="toc-sticky">
         <p class="toc-title">목차</p>
         <nav id="toc"></nav>
+        {% if page.module_id == 'dailybrief' or page.module_id == 'dailybrief-v2' %}
+        <p class="toc-title">Daily Brief 가이드</p>
+        <nav aria-label="Daily Brief 버전">
+          <p><a href="{{ '/labs/daily-brief-v2-kr/' | relative_url }}">v2 · 60분 참가자 실습</a></p>
+          <p><a href="{{ '/labs/daily-brief-kr/' | relative_url }}">v1 · 한국어</a> · <a href="{{ '/labs/daily-brief-en/' | relative_url }}">English</a></p>
+        </nav>
+        {% endif %}
       </div>
     </aside>
   </div>

@@ -19,6 +19,8 @@ source_url: "https://github.com/baby-crows/Copilot-Studio-Hands-on/blob/main/dai
 
 # Daily Brief Workflow — Hands-on Guide
 
+> **새 참가자 실습:** [Daily Brief Workflow v2 — B 분류 Starter부터 A 뉴스 브리프·메일·중요도 확인까지 (60분)]({{ '/labs/daily-brief-v2-kr/' | relative_url }}). 이 페이지의 v1 가이드는 그대로 유지합니다.
+
 > Copilot Studio의 신규 기능(Workflow + Custom Structured Output + Researcher node)을 활용해, 매일 특정 회사에 대한 뉴스 브리프를 자동 생성하고 메일로 발송하는 워크플로우를 30분 안에 구축합니다.
 
 ---

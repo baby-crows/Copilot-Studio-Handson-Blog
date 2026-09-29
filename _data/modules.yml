@@ -114,3 +114,20 @@
       time: "30분"
       summary: English version of the Daily Brief workflow hands-on guide.
       tags: [Workflow, Researcher, Structured Output]
+
+- id: dailybrief-v2
+  version: new
+  title: Daily Brief Workflow v2
+  icon: "📬"
+  badge: Public Preview
+  accent: "#5B5FC7"
+  description: >-
+    B 메일 분류 Starter를 먼저 완성하고 A 뉴스 브리프를 직접 만듭니다.
+    실제 수신 메일과 같은 SharePoint 항목의 중요도까지 확인하는 60분 참가자 실습.
+  labs:
+    - title: "Daily Brief Workflow v2 (한국어)"
+      url: /labs/daily-brief-v2-kr/
+      level: 300
+      time: "60분"
+      summary: B 분류 설명 작성 → A 뉴스 생성·저장·발송 → 중요도 확인 → 종료 정리.
+      tags: [Workflow, Researcher, Classify, SharePoint]

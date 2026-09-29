@@ -1,0 +1,44 @@
+---
+title: "Daily Brief V2 · 만드는 순서 B → A / 실행 순서 A → 메일 → B"
+config:
+  fontFamily: Malgun Gothic
+  themeCSS: "text, tspan, .label {font-family: 'Malgun Gothic', sans-serif !important;}"
+  theme: base
+  themeVariables:
+    fontFamily: Malgun Gothic, sans-serif
+    fontSize: 22px
+    primaryColor: '#eaf2ff'
+    primaryTextColor: '#15345a'
+    primaryBorderColor: '#377bcc'
+    lineColor: '#54708d'
+    clusterBkg: '#f5f9ff'
+    clusterBorder: '#b6cce5'
+  flowchart:
+    curve: linear
+    htmlLabels: false
+    nodeSpacing: 24
+    rankSpacing: 30
+    wrappingWidth: 190
+---
+flowchart LR
+  subgraph A["Workflow A · 뉴스 브리프 생성"]
+    AI["회사명 입력\n뉴스 조사·검토\n분석·HTML 작성"] --> AR["Archive\n새 항목 생성\nTitle: Daily Brief"]
+    AR --> S["SendBrief\n자기 메일로 발송\nArchive ID 삽입"]
+  end
+  subgraph B["Workflow B · 받은 메일 분류"]
+    T["새 메일 수신\nInbox · 필터 없음"] --> CL["Classify\n전체 HTML 본문"]
+    CL -->|High| H["Update item\nhigh\n우선 검토"]
+    CL -->|Normal| N["Update item\nnormal\n정기 검토"]
+    CL -->|Low| L["Update item\nlow\n참고 보관"]
+    CL -->|Other| O["Update item\nunknown\n수동 검토"]
+  end
+  S -->|"Daily Brief"| T
+  AR -->|"새 항목 저장"| DB[("SharePoint\n동일 항목\n중요도·처리 상태")]
+  H --> DB
+  N --> DB
+  L --> DB
+  O --> DB
+  classDef storage fill:#e4f6f0,stroke:#27806a,color:#154d40;
+  classDef mail fill:#fff2d7,stroke:#c58b2b,color:#64420c;
+  class DB storage;
+  class S,T mail;
