@@ -121,7 +121,7 @@ flowchart TD
 3. Copilot Studio에서 **강사 지정 기본 환경(Default)**을 선택합니다.
 4. `<강사가 배포한 사이트>`에서 본인 **`BriefArchive_NN`** 리스트와 현재 회차 보기를 엽니다. 새 사이트·리스트를 만들지 않습니다.
 5. 강사가 공지한 회차 **R1 / R2 / R3**와 계정 끝의 두 자리 번호 **NN = 01–20**을 확인합니다.
-6. 강사가 별도로 배포한 링크에서 **현재 회차 × 본인 번호의 Starter**를 엽니다. 실제 계정 주소·사이트·60개 Starter 링크는 이 공개 페이지에 싣지 않습니다.
+6. 강사가 별도로 배포한 링크에서 **현재 회차 × 본인 번호의 Starter**를 엽니다. 실제 로그인 주소·60개 Starter 링크는 강사가 별도로 배포하며, 아래에는 비상용 리스트 직접 링크만 제공합니다.
 
 **한 회차 20명 × 순차 3회차 = 총 60명**입니다. 같은 20개 사서함을 회차별로 재사용하며, 60명이 동시에 실행하는 구성이 아닙니다. 시간에 따라 회차가 자동 변경되지 않으므로 **강사가 지금 공지한 회차**를 따릅니다.
 
@@ -135,6 +135,27 @@ flowchart TD
 | 리스트 | `BriefArchive_NN` | 같은 리스트 재사용 | 같은 리스트 재사용 |
 
 Default에는 **20개 계정 × 3개 회차의 Starter 60개**가 준비되어 있습니다. 원본은 수정·게시하지 않고 복사본만 사용합니다.
+
+### 비상 접속: 본인 SharePoint 리스트 바로 열기
+
+홈 화면이나 SharePoint 시작 화면에서 목록을 찾기 어려우면 아래 본인 번호를 누르세요. 로그인은 배정받은 CopilotDemo 계정을 사용합니다. **직접 링크는 권한을 우회하거나 새 권한을 부여하지 않습니다.**
+
+| 계정 번호 | 리스트 직접 링크 | 계정 번호 | 리스트 직접 링크 |
+|---|---|---|---|
+| 01 | [BriefArchive_01](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_01/AllItems.aspx) | 11 | [BriefArchive_11](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_11/AllItems.aspx) |
+| 02 | [BriefArchive_02](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_02/AllItems.aspx) | 12 | [BriefArchive_12](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_12/AllItems.aspx) |
+| 03 | [BriefArchive_03](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_03/AllItems.aspx) | 13 | [BriefArchive_13](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_13/AllItems.aspx) |
+| 04 | [BriefArchive_04](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_04/AllItems.aspx) | 14 | [BriefArchive_14](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_14/AllItems.aspx) |
+| 05 | [BriefArchive_05](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_05/AllItems.aspx) | 15 | [BriefArchive_15](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_15/AllItems.aspx) |
+| 06 | [BriefArchive_06](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_06/AllItems.aspx) | 16 | [BriefArchive_16](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_16/AllItems.aspx) |
+| 07 | [BriefArchive_07](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_07/AllItems.aspx) | 17 | [BriefArchive_17](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_17/AllItems.aspx) |
+| 08 | [BriefArchive_08](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_08/AllItems.aspx) | 18 | [BriefArchive_18](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_18/AllItems.aspx) |
+| 09 | [BriefArchive_09](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_09/AllItems.aspx) | 19 | [BriefArchive_19](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_19/AllItems.aspx) |
+| 10 | [BriefArchive_10](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_10/AllItems.aspx) | 20 | [BriefArchive_20](https://m365cpi92953692.sharepoint.com/sites/DailyBriefLab/Lists/BriefArchive_20/AllItems.aspx) |
+
+열리면 보기 메뉴에서 강사가 공지한 R1/R2/R3를 선택합니다. All Items에는 이전 PILOT 결과가 함께 보일 수 있습니다.
+
+직접 링크에도 Access denied가 나오면 오른쪽 위 계정 주소를 확인하고, 배정된 계정으로 별도 브라우저 프로필에서 다시 로그인합니다. 여전히 실패하면 계정 번호·실제 URL·오류 메시지·발생 시각·요청 ID/상관관계 ID를 강사에게 전달합니다. 연결 토큰·암호는 보내지 않습니다.
 
 ### 2.2 헷갈리기 쉬운 세 가지 번호
 
