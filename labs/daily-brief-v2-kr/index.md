@@ -510,24 +510,33 @@ if(less(length(body('Critic')?['structuredOutput']?['validated_articles']),3),'l
 2. 연결은 본인 계정, **To는 `<본인 데모 계정>` 한 명**만 지정합니다.
 3. 주소 입력 후 **Enter 또는 검색 결과 선택으로 수신자 칩을 확정**합니다. 저장 후 다시 열어 칩이 남았는지 확인합니다.
 4. **Subject에 `Daily Brief`만** 입력합니다. 회사·회차·NN·RunKey·ID·`[]`를 덧붙이지 않습니다.
-5. Body의 **HTML 입력 / 코드 보기**에서 Composer의 message와 Archive의 ID를 다음과 같이 연결합니다.
+5. **Body 일반 편집기에서 `/`를 눌러 동적 콘텐츠를 직접 넣습니다.** `<div>`·`<p>` 태그를 복사해서 감쌀 필요는 없습니다.
 
-```html
-<div>[[Composer.message]]</div><p>Archive ID: [[Archive.ID]]</p>
-```
-
-같은 결과를 만드는 **Expression**은 다음과 같습니다. 두 방법 중 **하나만** 사용하고 본인 노드를 참조합니다.
+아래는 **완성 모양을 설명하는 예시**입니다. `Composer.Agent Response`나 식을 일반 문자열로 그대로 붙여넣지 마세요.
 
 ```text
-concat('<div>',body('Composer')?['message'],'</div><p>Archive ID: ',string(body('Archive')?['ID']),'</p>')
+Composer.Agent Response
+Archive ID: string(body('Archive')?['ID'])
 ```
 
-`Archive ID: `의 공백과 `<p>…</p>` 형식을 그대로 유지합니다. 숫자는 자동으로 들어가므로 **특정 번호를 손으로 넣지 않습니다.**
+**실제 입력 순서**
+
+- 첫 줄에서 **`/` → Composer → Agent Response**를 선택해 실제 토큰을 넣습니다. 화면에 따라 `message`로 표시될 수 있습니다.
+- Enter로 다음 줄을 만들고 **`Archive ID: `**를 직접 입력합니다. 콜론 뒤 공백 한 칸을 유지합니다.
+- 바로 뒤에서 **`/`로 Archive의 ID 동적 콘텐츠**를 넣습니다. 문자열 변환이 필요한 경우 표현식 입력에서 아래 식을 넣고 **적용해 토큰으로 확정**합니다. 슬래시 메뉴에 표현식 항목이 없으면 옆의 표현식 버튼을 사용합니다.
+
+```text
+string(body('Archive')?['ID'])
+```
+
+**복사 버튼은 글자만 복사합니다. Workflow 변수 토큰까지 자동 생성하지는 않습니다.** `Composer.Agent Response` 또는 `string(...)`가 일반 글자로 남아 있으면 해당 부분을 지우고 실제 토큰/표현식으로 다시 넣으세요. 숫자를 직접 타이핑하지 않습니다. `Archive ID:` 줄은 본문 마지막에 둡니다.
 
 6. 메일의 Importance는 **Normal**로 둡니다. 이는 나중에 B가 SharePoint에 쓰는 내용 중요도와 별개입니다.
 7. CC/BCC/From/첨부는 비웁니다. 발송 전 본인 수신자·본문 연결·제목·리스트·회차를 확인합니다.
 
-![SendBrief의 공통 제목과 자동 Archive ID footer 구성]({{ '/labs/daily-brief-v2-kr/assets/67-simple-A-Daily-Brief-Archive-ID.png' | relative_url }})
+> **기존 화면 참고:** 아래 캡처에는 이전 HTML 태그 입력 방식이 보일 수 있습니다. 현재 실습은 위 **일반 편집기에서 `/`로 토큰 삽입** 절차를 따릅니다. Composer 응답과 실제 Archive ID를 연결한다는 점은 같습니다.
+
+![이전 HTML 입력 방식 참고 화면 — 현재는 위의 슬래시 토큰 입력 절차 사용]({{ '/labs/daily-brief-v2-kr/assets/67-simple-A-Daily-Brief-Archive-ID.png' | relative_url }})
 
 **A는 저장 후 바로 발송합니다.** 승인·Importance·MailStatus를 검사하는 조건을 추가하지 않습니다. `low_yield` 브리프도 발송될 수 있으므로 받은 내용과 근거를 직접 확인합니다.
 
